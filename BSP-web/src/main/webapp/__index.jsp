@@ -7,7 +7,7 @@
     </head>
     <body>
         
-        START JSP PAGE  !!! !11123
+        START JSP PAGE  !!! 
 	<ol>
 	        <li> <a href="img/DSC.jpg"> Get foto</a> </li>
                 <li> Чтобы увидеть знанчения headers введите /getInfo?header=название_хидера </li>
