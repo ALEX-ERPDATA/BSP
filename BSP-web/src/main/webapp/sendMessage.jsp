@@ -9,7 +9,7 @@
 		<form action="sendMessage" method="POST">
 			<table>
 				<tr>
-					<td>Введите сообщение111:</td>
+					<td>Введите сообщение:</td>
 					<td><input type="text" name="message" size="70"/></td>
 				</tr>
 				<tr>
