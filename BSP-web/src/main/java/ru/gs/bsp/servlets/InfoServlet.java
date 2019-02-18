@@ -69,6 +69,7 @@ public class InfoServlet extends HttpServlet {
     @Override
     public void destroy() {
         System.out.println("== destroy InfoServlet ");
+//        System.out.println("== ");
     } 
 }
 

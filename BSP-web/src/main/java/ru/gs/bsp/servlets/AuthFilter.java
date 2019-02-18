@@ -30,7 +30,7 @@ public class AuthFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        System.out.print("=do Filter: Request received ...");
+        System.out.print("=do Filter: Request received .....");
 
         try {
 
@@ -57,7 +57,7 @@ public class AuthFilter implements Filter {
             System.out.println("IOException raised in AuthenticationFilter");
         }
 
-        System.out.print("do Filter : Response dispatched ...");
+        System.out.print("do Filter : Response dispatched ......");
     }
 
     private boolean checkUserAutorization(HttpServletRequest request) {
