@@ -54,11 +54,11 @@ public class JMSService {
             JMSContext context = cf.createContext();
             Destination destination = context.createQueue("queue:///" + QUEUE_NAME);
             JMSProducer producer = context.createProducer();
-            context.createTextMessage("Your message  is " + message);
+            context.createTextMessage("==Your message  is " + message);
             //send the message
             
             producer.send(destination, message);
-            System.out.println("Sent message:\n" + message);
+            System.out.println("==Sent11 message:\n" + message);
 
             //get message
             //JMSConsumer consumer = context.createConsumer(destination); // autoclosable
