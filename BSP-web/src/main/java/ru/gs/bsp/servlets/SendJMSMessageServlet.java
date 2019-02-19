@@ -1,4 +1,4 @@
-package ru.lukdiman.ejb.web.servlet;
+package ru.gs.bsp.servlets;
 
 import ru.lukdiman.ejb.core.jmsmessage.JMSMessageHome;
 import ru.lukdiman.ejb.core.jmsmessage.JMSMessage;
@@ -11,6 +11,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import javax.jms.JMSException;
+import javax.jms.Queue;
+import javax.jms.QueueConnection;
+import javax.jms.QueueConnectionFactory;
+import javax.jms.QueueSession;
+import javax.jms.Session;
+import javax.jms.TextMessage;
+import ru.gs.bsp.jmsmessage.JMSService;
 
 public class SendJMSMessageServlet extends HttpServlet {
     private static final String MESSAGE_PARAMETER_NAME = "message";
@@ -42,8 +50,22 @@ public class SendJMSMessageServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         String message = request.getParameter(MESSAGE_PARAMETER_NAME);
-        request.setAttribute(MESSAGE_PARAMETER_NAME, (jmsMessage.processMessage(message)) ? MESSAGE_SENDING_SUCCESS : MESSAGE_SENDING_ERROR);
+       //Отправить в очередь
+        JMSService.getInstatnce().processMessage(message);
         
-        request.getRequestDispatcher("/viewMessage.jsp").forward(request, response);
+       //request.setAttribute(MESSAGE_PARAMETER_NAME, (jmsMessage.processMessage(message)) ? MESSAGE_SENDING_SUCCESS : MESSAGE_SENDING_ERROR);
+       // request.getRequestDispatcher("/viewMessage.jsp").forward(request, response);
     }
+    
+    
+    /*@Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        String message = request.getParameter(MESSAGE_PARAMETER_NAME);
+        request.setAttribute(MESSAGE_PARAMETER_NAME, (jmsMessage.processMessage(message)) ? MESSAGE_SENDING_SUCCESS : MESSAGE_SENDING_ERROR);
+        request.getRequestDispatcher("/viewMessage.jsp").forward(request, response);
+    }*/
+    
+    
+    
 }
