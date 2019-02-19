@@ -43,12 +43,12 @@
         </plugins>
     </build>
     <dependencies>
-        <dependency>
+        <!--dependency>
             <groupId>ru.gs</groupId>
             <artifactId>BSP-ejb</artifactId>
             <version>1.0</version>
             <type>ejb</type>
-        </dependency>
+        </dependency-->
         <dependency>
             <groupId>ru.gs</groupId>
             <artifactId>BSP-web</artifactId>
