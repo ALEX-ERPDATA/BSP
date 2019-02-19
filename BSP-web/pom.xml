@@ -56,8 +56,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
                 <configuration>
-                    <fork>true</fork>
-                    <executable>F:\Java\jdk1.8.0_161\bin\javac</executable>
+                    <!--fork>true</fork>
+                    <executable>F:\Java\jdk1.8.0_161\bin\javac</executable-->
                     <source>1.8</source>
                     <target>1.8</target>
                     <compilerArguments>
