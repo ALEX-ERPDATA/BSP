@@ -53,7 +53,8 @@
             <groupId>ru.gs</groupId>
             <artifactId>BSP-web</artifactId>
             <version>1.0</version>
-            <type>war</type>
-        </dependency>
+            <type>war</type>     
+        </dependency>       
+         
     </dependencies>
 </project>
