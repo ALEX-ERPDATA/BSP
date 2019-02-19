@@ -27,7 +27,7 @@ public class SendJMSMessageServlet extends HttpServlet {
 
     private JMSMessage jmsMessage = null;
 
-    @Override
+    /*@Override
     public void init() throws ServletException {
         super.init();
 
@@ -39,7 +39,7 @@ public class SendJMSMessageServlet extends HttpServlet {
         } catch (Exception e) {
             throw new ServletException(e);
         }
-    }
+    }*/
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
