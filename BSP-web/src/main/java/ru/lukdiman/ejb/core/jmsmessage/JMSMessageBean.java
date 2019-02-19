@@ -11,7 +11,7 @@ import javax.naming.NamingException;
 public class JMSMessageBean implements SessionBean {
 	private SessionContext sessionContext;
 	private QueueConnectionFactory connectionFactory;
-    private Queue destination;
+        private Queue destination;
 
 	public boolean processMessage(String message) {
         QueueConnection jmsConnection = null;

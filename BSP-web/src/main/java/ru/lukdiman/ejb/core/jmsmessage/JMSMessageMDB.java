@@ -10,13 +10,6 @@ import javax.jms.TextMessage;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Diman
- * Date: 17.03.13
- * Time: 1:55
- * To change this template use File | Settings | File Templates.
- */
 public class JMSMessageMDB implements MessageDrivenBean, MessageListener {
     @Override
     public void ejbRemove() throws EJBException {

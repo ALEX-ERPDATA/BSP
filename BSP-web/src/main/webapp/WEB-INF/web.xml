@@ -17,17 +17,15 @@
             <param-value>true</param-value>
         </init-param>
     </filter>
-    
     <servlet>
         <servlet-name>SendJMSMessage</servlet-name>
-        <servlet-class>ru.lukdiman.ejb.web.servlet.SendJMSMessageServlet</servlet-class>
+        <servlet-class>ru.gs.bsp.servlets.SendJMSMessageServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-          <servlet-name>SendJMSMessage</servlet-name>
-           <url-pattern>/sendMessage</url-pattern>
+        <servlet-name>SendJMSMessage</servlet-name>
+        <url-pattern>/sendMessage</url-pattern>
     </servlet-mapping>
-    
-     <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>InfoServlet</servlet-name>
         <url-pattern>/getInfo</url-pattern>
     </servlet-mapping>
@@ -35,7 +33,6 @@
         <servlet-name>InfoServlet</servlet-name>
         <servlet-class>ru.gs.bsp.servlets.InfoServlet</servlet-class>
     </servlet>
-    
     <servlet-mapping>
         <servlet-name>LoginPostServlet</servlet-name>
         <url-pattern>/LoginPost</url-pattern>
@@ -44,7 +41,6 @@
         <servlet-name>LoginPostServlet</servlet-name>
         <servlet-class>ru.gs.bsp.servlets.LoginPostServlet</servlet-class>
     </servlet>
-    
     <!-- перевести на Web-services -->
     <servlet-mapping>
         <servlet-name>WelcomeServlet</servlet-name>
@@ -58,7 +54,6 @@
             <param-value>firstPage.jsp</param-value>
         </init-param>
     </servlet>
-    
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/app/logout</url-pattern>
@@ -67,7 +62,6 @@
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>ru.gs.bsp.servlets.LogoutServlet</servlet-class>
     </servlet>
-    
     <servlet-mapping>
         <servlet-name>GetCurrencyRates</servlet-name>
         <url-pattern>/app/rates</url-pattern>
@@ -76,16 +70,14 @@
         <servlet-name>GetCurrencyRates</servlet-name>
         <servlet-class>ru.gs.bsp.servlets.GetCurrencyRates</servlet-class>
     </servlet>
-    
     <servlet-mapping>
         <servlet-name>GetAllOrders</servlet-name>
         <url-pattern>/app/orders</url-pattern>
-    </servlet-mapping>  
+    </servlet-mapping>
     <servlet>
         <servlet-name>GetAllOrders</servlet-name>
         <servlet-class>ru.gs.bsp.servlets.GetCurrencyRates</servlet-class>
     </servlet>
-       
     <session-config>
         <session-timeout>
             30
