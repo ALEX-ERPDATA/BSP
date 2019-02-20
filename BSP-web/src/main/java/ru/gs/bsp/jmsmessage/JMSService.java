@@ -1,4 +1,5 @@
 package ru.gs.bsp.jmsmessage;
+
 import com.ibm.msg.client.jms.JmsConnectionFactory;
 import com.ibm.msg.client.jms.JmsFactoryFactory;
 import com.ibm.msg.client.wmq.WMQConstants;
@@ -34,12 +35,12 @@ public class JMSService {
             
     public boolean processMessage(String message) {
         // Create a connection factory
-        boolean answer = true;
+        boolean answer = true;       
 
         try {
             JmsFactoryFactory ff = JmsFactoryFactory.getInstance(WMQConstants.WMQ_PROVIDER);
             //JmsConnectionFactory cf = 
-            com.ibm.msg.client.jms.JmsConnectionFactory  cf =
+            JmsConnectionFactory  cf =
                     (com.ibm.msg.client.jms.JmsConnectionFactory) ff.createConnectionFactory();
             
             cf.setStringProperty(WMQConstants.WMQ_HOST_NAME, HOST);
