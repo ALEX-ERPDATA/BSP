@@ -38,7 +38,7 @@ public class JMSService {
 
         try {
             JmsFactoryFactory ff = JmsFactoryFactory.getInstance(WMQConstants.WMQ_PROVIDER);
-            JmsConnectionFactory cf = ff.createConnectionFactory();
+            JmsConnectionFactory cf = (com.ibm.msg.client.jms.JmsConnectionFactory) ff.createConnectionFactory();
             
             cf.setStringProperty(WMQConstants.WMQ_HOST_NAME, HOST);
             cf.setIntProperty(WMQConstants.WMQ_PORT, PORT);
