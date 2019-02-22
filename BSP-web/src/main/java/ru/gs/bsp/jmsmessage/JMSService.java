@@ -61,7 +61,7 @@ public class JMSService {
             //send the message
             
             producer.send(destination, message);
-            System.out.println("==Sent11 message:\n" + message);
+            System.out.println("==Sent message:\n" + message);
 
             //get message
             //JMSConsumer consumer = context.createConsumer(destination); // autoclosable
