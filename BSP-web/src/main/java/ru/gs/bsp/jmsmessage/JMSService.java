@@ -40,7 +40,7 @@ public class JMSService {
         try {
             JmsFactoryFactory ff = JmsFactoryFactory.getInstance(WMQConstants.WMQ_PROVIDER);
             JmsConnectionFactory  cf = ff.createConnectionFactory();
-            System.out.println("== Conn Factory is " + cf.getClass().getName());
+            System.out.println("== Conn Factory s is " + cf.getClass().getName());
             
             
             cf.setStringProperty(WMQConstants.WMQ_HOST_NAME, HOST);
