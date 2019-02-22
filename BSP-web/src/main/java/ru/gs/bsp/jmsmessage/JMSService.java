@@ -3,6 +3,7 @@ package ru.gs.bsp.jmsmessage;
 import com.ibm.msg.client.jms.JmsConnectionFactory;
 import com.ibm.msg.client.jms.JmsFactoryFactory;
 import com.ibm.msg.client.wmq.WMQConstants;
+import java.lang.reflect.Method;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.jms.JMSException;
@@ -41,8 +42,7 @@ public class JMSService {
             JmsFactoryFactory ff = JmsFactoryFactory.getInstance(WMQConstants.WMQ_PROVIDER);
             JmsConnectionFactory  cf = ff.createConnectionFactory();
             System.out.println("== Conn Factory s is " + cf.getClass().getName());
-            
-            
+                        
             cf.setStringProperty(WMQConstants.WMQ_HOST_NAME, HOST);
             cf.setIntProperty(WMQConstants.WMQ_PORT, PORT);
             cf.setStringProperty(WMQConstants.WMQ_CHANNEL, CHANNEL);
