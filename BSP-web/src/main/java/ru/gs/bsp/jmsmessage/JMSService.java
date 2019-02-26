@@ -69,7 +69,7 @@ public class JMSService {
             JMSConsumer auditConsumer = context.createConsumer(destination); // autoclosable
             while (true) {
                 String receivedMessage = auditConsumer.receiveBody(String.class, 7000); // in ms or 7 seconds
-                System.out.println("==Receive message:\n" + receivedMessage );
+                System.out.println("==Receive11 message:\n" + receivedMessage );
             }
 
         } catch (JMSException ex) {
