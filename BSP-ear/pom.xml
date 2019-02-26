@@ -12,7 +12,7 @@
     <version>1.0</version>
     <packaging>ear</packaging>
 
-    <name>BSP-ear</name>
+    <name>BSP</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -43,18 +43,18 @@
         </plugins>
     </build>
     <dependencies>
-        <!--dependency>
-            <groupId>ru.gs</groupId>
-            <artifactId>BSP-ejb</artifactId>
-            <version>1.0</version>
-            <type>ejb</type>
-        </dependency-->
         <dependency>
             <groupId>ru.gs</groupId>
             <artifactId>BSP-web</artifactId>
             <version>1.0</version>
             <type>war</type>     
         </dependency>       
+        <!--dependency>
+            <groupId>ru.gs</groupId>
+            <artifactId>BSP-ejb</artifactId>
+            <version>1.0</version>
+            <type>ejb</type>
+        </dependency-->
          
     </dependencies>
 </project>
