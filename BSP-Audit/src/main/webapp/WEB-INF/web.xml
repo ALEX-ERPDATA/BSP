@@ -5,7 +5,7 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>AuditServlet</servlet-name>
+        <servlet-name>AuditStartServlet</servlet-name>
         <servlet-class>ru.gs.audit.AuditStartServlet</servlet-class>
     </servlet>
     <servlet-mapping>

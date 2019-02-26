@@ -12,8 +12,6 @@ public class AuditStartServlet  extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
-        AuditEngine.getInstance().start();
-        
         PrintWriter out = response.getWriter();
         try {
             out.println("<html>");
@@ -24,6 +22,8 @@ public class AuditStartServlet  extends HttpServlet {
             out.println("<h2> The Audit's running... </h2>");
             out.println("</body>");
             out.println("</html>");
+            
+            AuditEngine.getInstance().start();
         } finally { 
             out.close();
         }
