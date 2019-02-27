@@ -66,12 +66,7 @@ public class JMSService {
             producer.send(destination, message);
             System.out.println("==Sent message:\n" + message);
 
-            //get message
-            /*JMSConsumer auditConsumer = context.createConsumer(destination); // autoclosable
-            while (true) {
-                String receivedMessage = auditConsumer.receiveBody(String.class, 7000); // in ms or 7 seconds
-                System.out.println("==Receive11 message:\n" + receivedMessage );
-            }*/
+           
 
         } catch (JMSException ex) {
             Logger.getLogger(JMSService.class.getName()).log(Level.SEVERE, null, ex);
