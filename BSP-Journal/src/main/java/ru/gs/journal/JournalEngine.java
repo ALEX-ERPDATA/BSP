@@ -1,9 +1,11 @@
 package ru.gs.journal;
 
+import com.ibm.jms.*;
+import com.ibm.mq.jms.*;
+
 import com.ibm.msg.client.jms.JmsConnectionFactory;
 import com.ibm.msg.client.jms.JmsFactoryFactory;
 import com.ibm.msg.client.wmq.WMQConstants;
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.jms.Destination;
@@ -11,11 +13,12 @@ import javax.jms.JMSContext;
 import javax.jms.JMSProducer;
 import javax.jms.JMSConsumer;
 import javax.jms.JMSException;
+import javax.jms.Session;
 
 public class JournalEngine {
     private static final JournalEngine INSTANCE = new JournalEngine() ;
     private static boolean start ;
-    private static JMSConsumer auditConsumer;
+    private static JMSConsumer consumer;
     
     private static final String HOST = "ARM2"; // Host name or IP address
     private static final int PORT = 1414; // Listener port for your queue manager
@@ -25,8 +28,35 @@ public class JournalEngine {
     private static final String APP_PASSWORD = "WAS_USER1"; // Password that the application uses to connect to MQ
     private static final String QUEUE_NAME = "HOME.TO.ES"; // Queue that the applicatio
     
+    //MQ Extention
     private JournalEngine () { 
+                
+        try {
+            //create ConnectionFactory
+            
+            MQQueueConnectionFactory cf = new MQQueueConnectionFactory();
+            cf.setTransportType(WMQConstants.WMQ_CM_CLIENT);
+            cf.setQueueManager(QMGR);
+            cf.setHostName(HOST);
+            cf.setPort(PORT);
+            cf.setChannel(CHANNEL);
+                        
+            JMSContext context = cf.createContext();
+            MQQueue queue = new MQQueue(QUEUE_NAME);
+            //queue.setPersistence(WMQConstants.WMQ_PER_PER);
+    
+            consumer = context.createConsumer(queue);              
+            
+        } catch (JMSException ex) {
+            Logger.getLogger(JournalEngine.class.getName()).log(Level.SEVERE, null, ex);
+        }   
+        
+    }
+    
+    // JMS Extention    
+    /*private JournalEngine () { 
              try {
+                //create ConnectionFactory
                 JmsFactoryFactory ff = JmsFactoryFactory.getInstance(WMQConstants.WMQ_PROVIDER);
                 JmsConnectionFactory cf = ff.createConnectionFactory();
                 System.out.println("== Audit Conn Factory s is " + cf.getClass().getName());
@@ -44,13 +74,14 @@ public class JournalEngine {
                 // Create JMS Destination
                 JMSContext context = cf.createContext();
                 Destination destination = context.createQueue("queue:///" + QUEUE_NAME);
+                
                 //Create Consumer
-                 auditConsumer = context.createConsumer(destination); // autoclosable
+                 consumer = context.createConsumer(destination); // autoclosable
                 
             } catch (JMSException ex) {
                 
             }    
-    }
+    }*/
     public static JournalEngine getInstance() {         
         return INSTANCE;
     }
@@ -58,7 +89,7 @@ public class JournalEngine {
     public void start() {          
         start = true;
         while (start==true) {
-               String receivedMessage = auditConsumer.receiveBody(String.class, 3000); // in ms or 3 seconds
+               String receivedMessage = consumer.receiveBody(String.class, 3000); // in ms or 3 seconds
                System.out.println("== Audit Receive message:\n" + receivedMessage );
         }    
     }
