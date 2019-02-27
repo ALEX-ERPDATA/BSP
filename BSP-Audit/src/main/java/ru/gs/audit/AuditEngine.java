@@ -12,11 +12,10 @@ import javax.jms.JMSProducer;
 import javax.jms.JMSConsumer;
 import javax.jms.JMSException;
 
-public final class AuditEngine {
-    private static AuditEngine instance ;
+public class AuditEngine {
+    private static final AuditEngine INSTANCE = new AuditEngine() ;
     private static boolean start ;
     private static JMSConsumer auditConsumer;
-    private final int uid = new Random().nextInt(100);
     
     private static final String HOST = "ARM2"; // Host name or IP address
     private static final int PORT = 1414; // Listener port for your queue manager
@@ -52,29 +51,20 @@ public final class AuditEngine {
                 
             }    
     }
-    public static AuditEngine getInstance() {
-        if (instance == null) { 
-		synchronized(AuditEngine.class) { 
-			if (instance == null)  instance = new AuditEngine(); 
-		}	 
-	}         
-        return instance;
+    public static AuditEngine getInstance() {         
+        return INSTANCE;
     }
     
     public void start() {          
         start = true;
         while (start=true) {
                String receivedMessage = auditConsumer.receiveBody(String.class, 3000); // in ms or 3 seconds
-               System.out.println("==" +"uid="+uid+" Audit Receive message:\n" + receivedMessage );
+               System.out.println("== Audit Receive message:\n" + receivedMessage );
         }    
     }
     public void stop() {
-        System.out.println("==in stop" + " uid= " + uid );
         start=false;
-    }  
-    public int getUid() {
-        return uid;
-    }
+    }     
         
 }
     
