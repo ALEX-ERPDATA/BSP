@@ -3,15 +3,11 @@ package ru.gs.bsp.jmsmessage;
 import com.ibm.msg.client.jms.JmsConnectionFactory;
 import com.ibm.msg.client.jms.JmsFactoryFactory;
 import com.ibm.msg.client.wmq.WMQConstants;
-import java.lang.reflect.Method;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.jms.JMSException;
 import javax.jms.Destination;
 import javax.jms.JMSContext;
-import javax.jms.TextMessage;
 import javax.jms.JMSProducer;
-import javax.jms.JMSConsumer;
 import javax.jms.JMSException;
 
 public class JMSService {
@@ -37,13 +33,14 @@ public class JMSService {
     }
 
     public boolean processMessage(String message) {
-        // Create a connection factory
+
         boolean answer = true;
 
         try {
+            // Create a connection factory
             JmsFactoryFactory ff = JmsFactoryFactory.getInstance(WMQConstants.WMQ_PROVIDER);
             JmsConnectionFactory cf = ff.createConnectionFactory();
-            System.out.println("== Conn Factory s is " + cf.getClass().getName());
+            System.out.println("== JMS Connection Factory s is " + cf.getClass().getName());
 
             cf.setStringProperty(WMQConstants.WMQ_HOST_NAME, HOST);
             cf.setIntProperty(WMQConstants.WMQ_PORT, PORT);
@@ -55,13 +52,17 @@ public class JMSService {
             cf.setStringProperty(WMQConstants.USERID, APP_USER);
             cf.setStringProperty(WMQConstants.PASSWORD, APP_PASSWORD);
 
+            
             // Create JMS Destination
             JMSContext context = cf.createContext();
             Destination destination = context.createQueue("queue:///" + QUEUE_NAME);
+           
+            
             //Create Producer
             JMSProducer producer = context.createProducer();
-
-            //send the message
+           
+            
+           //send the message
             producer.send(destination, message);
             System.out.println("==Sent message:\n" + message);
 
