@@ -65,7 +65,7 @@ public final class AuditEngine {
         start = true;
         while (start=true) {
                String receivedMessage = auditConsumer.receiveBody(String.class, 3000); // in ms or 3 seconds
-               System.out.println("==Audit Receive message:\n" + receivedMessage );
+               System.out.println("==" +"uid="+uid+" Audit Receive message:\n" + receivedMessage );
         }    
     }
     public void stop() {
