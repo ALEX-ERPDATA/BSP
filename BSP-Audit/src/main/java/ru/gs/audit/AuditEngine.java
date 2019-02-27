@@ -3,6 +3,7 @@ package ru.gs.audit;
 import com.ibm.msg.client.jms.JmsConnectionFactory;
 import com.ibm.msg.client.jms.JmsFactoryFactory;
 import com.ibm.msg.client.wmq.WMQConstants;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.jms.Destination;
@@ -15,6 +16,7 @@ public final class AuditEngine {
     private static AuditEngine instance ;
     private static boolean start ;
     private static JMSConsumer auditConsumer;
+    private final int uid = new Random().nextInt(100);
     
     private static final String HOST = "ARM2"; // Host name or IP address
     private static final int PORT = 1414; // Listener port for your queue manager
@@ -62,15 +64,18 @@ public final class AuditEngine {
     public void start() {          
         start = true;
         while (start=true) {
-               String receivedMessage = auditConsumer.receiveBody(String.class, 5000); // in ms or 5 seconds
+               String receivedMessage = auditConsumer.receiveBody(String.class, 3000); // in ms or 3 seconds
                System.out.println("==Audit Receive message:\n" + receivedMessage );
         }    
     }
     public void stop() {
-        System.out.println("==in stop" );
+        System.out.println("==in stop" + " uid= " + uid );
         start=false;
-        }    
-        
+    }  
+    public int getUid() {
+        return uid;
     }
+        
+}
     
 
