@@ -8,6 +8,7 @@
         <servlet-name>JournalStartServlet</servlet-name>
         <servlet-class>ru.gs.journal.JournalStartServlet</servlet-class>
     </servlet>
+    
     <servlet-mapping>
         <servlet-name>JournalStopServlet</servlet-name>
         <url-pattern>/stop</url-pattern>
