@@ -12,8 +12,9 @@ public class AuditStopServlet  extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     
+        System.out.println("== in Stop Servlet" +" uid= "+ AuditEngine.getInstance().getUid());        
         AuditEngine.getInstance().stop();
-        System.out.println("== Stop Servlet" );
+        
         
         PrintWriter out = response.getWriter();
         try {
