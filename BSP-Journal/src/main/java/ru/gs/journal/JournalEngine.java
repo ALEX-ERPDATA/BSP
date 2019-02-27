@@ -32,19 +32,21 @@ public class JournalEngine {
     private JournalEngine () { 
                 
         try {
-            //create ConnectionFactory
-            
+            //create ConnectionFactory            
             MQQueueConnectionFactory cf = new MQQueueConnectionFactory();
+            System.out.println("== Journal MQ Conn Factory s is " + cf.getClass().getName());
+            
             cf.setTransportType(WMQConstants.WMQ_CM_CLIENT);
             cf.setQueueManager(QMGR);
             cf.setHostName(HOST);
             cf.setPort(PORT);
             cf.setChannel(CHANNEL);
                         
-            JMSContext context = cf.createContext();
             MQQueue queue = new MQQueue(QUEUE_NAME);
             //queue.setPersistence(WMQConstants.WMQ_PER_PER);
-    
+            
+            // Create Destination
+            JMSContext context = cf.createContext();
             consumer = context.createConsumer(queue);              
             
         } catch (JMSException ex) {
@@ -59,7 +61,7 @@ public class JournalEngine {
                 //create ConnectionFactory
                 JmsFactoryFactory ff = JmsFactoryFactory.getInstance(WMQConstants.WMQ_PROVIDER);
                 JmsConnectionFactory cf = ff.createConnectionFactory();
-                System.out.println("== Audit Conn Factory s is " + cf.getClass().getName());
+                System.out.println("== Jornal JMS Conn Factory s is " + cf.getClass().getName());
 
                 cf.setStringProperty(WMQConstants.WMQ_HOST_NAME, HOST);
                 cf.setIntProperty(WMQConstants.WMQ_PORT, PORT);
