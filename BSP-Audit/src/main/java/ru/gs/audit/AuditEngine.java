@@ -12,7 +12,7 @@ import javax.jms.JMSConsumer;
 import javax.jms.JMSException;
 
 public final class AuditEngine {
-    private static final AuditEngine ENGINE = new AuditEngine();
+    private static AuditEngine instance ;
     private static boolean start ;
     private static JMSConsumer auditConsumer;
     
@@ -51,13 +51,18 @@ public final class AuditEngine {
             }    
     }
     public static AuditEngine getInstance() {
-        return ENGINE;
+        if (instance == null) { 
+		synchronized(AuditEngine.class) { 
+			if (instance == null)  instance = new AuditEngine(); 
+		}	 
+	}         
+        return instance;
     }
     
     public void start() {          
         start = true;
         while (start=true) {
-               String receivedMessage = auditConsumer.receiveBody(String.class, 7000); // in ms or 7 seconds
+               String receivedMessage = auditConsumer.receiveBody(String.class, 5000); // in ms or 5 seconds
                System.out.println("==Audit Receive message:\n" + receivedMessage );
         }    
     }
