@@ -92,12 +92,12 @@ public class JournalEngine {
         start = true;
         while (start==true) {
                String receivedMessage = consumer.receiveBody(String.class, 3000); // in ms or 3 seconds
-               System.out.println("== Audit Receive message:\n" + receivedMessage );
+               System.out.println("== Journal Receive message:\n" + receivedMessage );
         }    
     }
     public void stop() {
         start=false;
-        System.out.println("== Audit has been stop " );
+        System.out.println("== Journal has been stop " );
     }     
         
 }
