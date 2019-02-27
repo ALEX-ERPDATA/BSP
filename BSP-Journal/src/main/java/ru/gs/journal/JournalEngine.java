@@ -78,7 +78,7 @@ public final class  JournalEngine {
                 Destination destination = context.createQueue("queue:///" + QUEUE_NAME);
                 
                 //Create Consumer
-                 consumer = context.createConsumer(destination); // autoclosable
+                 consumer = context.createConsumer(destination); // autoclosable 
                 
             } catch (JMSException ex) {
                 
