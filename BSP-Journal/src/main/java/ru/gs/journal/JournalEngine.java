@@ -15,7 +15,7 @@ import javax.jms.JMSConsumer;
 import javax.jms.JMSException;
 import javax.jms.Session;
 
-public class JournalEngine {
+public final class  JournalEngine {
     private static final JournalEngine INSTANCE = new JournalEngine() ;
     private static boolean start ;
     private static JMSConsumer consumer;
@@ -89,9 +89,9 @@ public class JournalEngine {
     }
     
     public void start() {          
-        start = true;
+        start=true;
         while (start==true) {
-               String receivedMessage = consumer.receiveBody(String.class, 3000); // in ms or 3 seconds
+               String receivedMessage = consumer.receiveBody(String.class, 4000); // in ms or 3 seconds
                System.out.println("== Journal Receive message:\n" + receivedMessage );
         }    
     }

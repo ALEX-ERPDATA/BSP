@@ -12,22 +12,7 @@ public class JournalStartServlet  extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
-        JournalEngine.getInstance().start();
-        /*PrintWriter out = response.getWriter();
-        try {
-            out.println("<html>");
-            out.println("<title>");
-            out.println("State");
-            out.println("</title>");
-            out.println("<body>");
-            out.println("<h2> The Audit's running... </h2>");
-            out.println("</body>");
-            out.println("</html>");    
-            
-        } finally { 
-            out.close();
-        }
-        */  
+        JournalEngine.getInstance().start();      
     }
    
     @Override
