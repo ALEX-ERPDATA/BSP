@@ -17,10 +17,10 @@ public class JMSService {
     private static final String HOST = "ARM2"; // Host name or IP address
     private static final int PORT = 1414; // Listener port for your queue manager
     private static final String CHANNEL = "SYSTEM.ADMIN.SVRCONN"; // Channel name
-    private static final String QMGR = "HABR_QUEUE_MANAGER"; // Queue manager name
+    private static final String QMGR = "QM_IMOD"; // Queue manager name
     private static final String APP_USER = "WAS_USER1"; // User name that application uses to connect to MQ
     private static final String APP_PASSWORD = "WAS_USER1"; // Password that the application uses to connect to MQ
-    private static final String QUEUE_NAME = "HOME.TO.ES"; // Queue that the applicatio
+    private static final String QUEUE_NAME = "ALI.W.APP.TO.JOURNAL"; // Queue that the applicatio
 
     private JMSService() {
     }
