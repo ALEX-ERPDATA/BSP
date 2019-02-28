@@ -17,13 +17,14 @@ import javax.jms.TextMessage;
 
 public final class  JournalEngine {
     private static final JournalEngine INSTANCE = new JournalEngine() ;
-    private static boolean start ;
+    private static boolean isStart ;
     // for JMS 2.0
     // private static JMSConsumer consumer;
     // for JMS 1.1
     private static Connection connection ;
     private static Session session ;
     private static MessageConsumer messageConsumer;
+    private static JmsConnectionFactory cf;
     
     private static final String HOST = "ARM2"; // Host name or IP address
     private static final int PORT = 1414; // Listener port for your queue manager
@@ -59,7 +60,7 @@ public final class  JournalEngine {
                 */ 
                
                 JmsFactoryFactory ff = JmsFactoryFactory.getInstance(WMQConstants.WMQ_PROVIDER);
-                JmsConnectionFactory cf = ff.createConnectionFactory();
+                cf = ff.createConnectionFactory();
                 System.out.println("== Jornal JMS 1.1 Conn Factory s is " + cf.getClass().getName());
 
                 cf.setStringProperty(WMQConstants.WMQ_HOST_NAME, HOST);
@@ -70,12 +71,7 @@ public final class  JournalEngine {
                 cf.setStringProperty(WMQConstants.WMQ_APPLICATIONNAME, "Journal App");
                 cf.setBooleanProperty(WMQConstants.USER_AUTHENTICATION_MQCSP, true);
                 cf.setStringProperty(WMQConstants.USERID, APP_USER);
-                cf.setStringProperty(WMQConstants.PASSWORD, APP_PASSWORD); 
-                              
-                connection = cf.createConnection();         
-                session = connection.createSession(false,Session.AUTO_ACKNOWLEDGE);
-                Queue queue = session.createQueue(QUEUE_NAME);                
-                messageConsumer = session.createConsumer(queue);                    
+                cf.setStringProperty(WMQConstants.PASSWORD, APP_PASSWORD);                                 
                                
             } catch (JMSException ex) {
                 
@@ -149,18 +145,27 @@ public final class  JournalEngine {
         }    
     }*/
     public void start() throws JMSException {          
-        connection.start();
+        if (isStart==false) {        
+            connection = cf.createConnection();         
+            session = connection.createSession(false,Session.AUTO_ACKNOWLEDGE);
+            Queue queue = session.createQueue(QUEUE_NAME);                
+            messageConsumer = session.createConsumer(queue); 
+            connection.start();
+            isStart=true;
+        } else {
+             System.out.println("== Journal's already runnig..." );
+        }
+             
         
-        start=true;
         System.out.println("== Journal has been start " );                
-        while (start==true) {
+        while (isStart==true) {
                TextMessage receivedMessage = (TextMessage) messageConsumer.receive(4000);// in ms or 4 seconds
                System.out.println("== Journal Receive message:\n" + receivedMessage );
         }
     }      
     
     public void stop() throws JMSException {
-        start=false;
+        isStart=false;
         messageConsumer.close();
         session.close();
         connection.close();
