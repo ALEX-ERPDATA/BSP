@@ -14,9 +14,13 @@ import javax.servlet.http.HttpServletResponse;
 public class JournalStartServlet  extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {      
-             JournalEngine.getInstance().start();
-        } catch (JMSException ex) { }        
+          
+        try {
+            JournalEngine.getInstance().start();
+        } catch (JMSException ex) {
+            Logger.getLogger(JournalStartServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+             
     }
    
     @Override

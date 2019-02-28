@@ -2,6 +2,8 @@ package ru.gs.journal;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.jms.JMSException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,7 +16,9 @@ public class JournalStopServlet  extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {      
              JournalEngine.getInstance().stop();
-        } catch (JMSException ex) { }               
+        } catch (JMSException ex) { 
+             Logger.getLogger(JournalStartServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }               
     }
    
     @Override
