@@ -139,7 +139,7 @@ public final class  JournalEngine {
     
     /*public void start() {          
         start=true;
-        while (start==true) {
+        while (start==true) { 
                String receivedMessage = consumer.receiveBody(String.class, 4000); // in ms or 3 seconds
                System.out.println("== Journal Receive message:\n" + receivedMessage );
         }    
