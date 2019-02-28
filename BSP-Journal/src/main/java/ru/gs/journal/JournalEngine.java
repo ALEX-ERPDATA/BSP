@@ -8,17 +8,26 @@ import com.ibm.msg.client.jms.JmsFactoryFactory;
 import com.ibm.msg.client.wmq.WMQConstants;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.jms.Connection;
 import javax.jms.Destination;
 import javax.jms.JMSContext;
 import javax.jms.JMSProducer;
 import javax.jms.JMSConsumer;
 import javax.jms.JMSException;
+import javax.jms.MessageConsumer;
+import javax.jms.Queue;
 import javax.jms.Session;
+import javax.jms.TextMessage;
 
 public final class  JournalEngine {
     private static final JournalEngine INSTANCE = new JournalEngine() ;
     private static boolean start ;
-    private static JMSConsumer consumer;
+    // for JMS 2.0
+    // private static JMSConsumer consumer;
+    // for JMS 1.1
+    private static Connection connection ;
+    private static Session session ;
+    private static MessageConsumer messageConsumer;
     
     private static final String HOST = "ARM2"; // Host name or IP address
     private static final int PORT = 1414; // Listener port for your queue manager
@@ -28,40 +37,65 @@ public final class  JournalEngine {
     private static final String APP_PASSWORD = "WAS_USER1"; // Password that the application uses to connect to MQ
     private static final String QUEUE_NAME = "HOME.TO.ES"; // Queue that the applicatio
     
-    //MQ Extention
+    //  JMS 1.1, MQ Extention
     private JournalEngine () { 
+             try {
+                //create ConnectionFactory
+               /* JmsFactoryFactory ff = JmsFactoryFactory.getInstance(WMQConstants.WMQ_PROVIDER);
+                JmsConnectionFactory cf = ff.createConnectionFactory();
+                System.out.println("== Jornal JMS 1.1 Conn Factory s is " + cf.getClass().getName());
+
+                cf.setStringProperty(WMQConstants.WMQ_HOST_NAME, HOST);
+                cf.setIntProperty(WMQConstants.WMQ_PORT, PORT);
+                cf.setStringProperty(WMQConstants.WMQ_CHANNEL, CHANNEL);
+                cf.setIntProperty(WMQConstants.WMQ_CONNECTION_MODE, WMQConstants.WMQ_CM_CLIENT);
+                cf.setStringProperty(WMQConstants.WMQ_QUEUE_MANAGER, QMGR);
+                cf.setStringProperty(WMQConstants.WMQ_APPLICATIONNAME, "Audit Rec");
+                cf.setBooleanProperty(WMQConstants.USER_AUTHENTICATION_MQCSP, true);
+                cf.setStringProperty(WMQConstants.USERID, APP_USER);
+                cf.setStringProperty(WMQConstants.PASSWORD, APP_PASSWORD);
+
+                // Create JMS Destination
+                JMSContext context = cf.createContext();
+                Destination destination = context.createQueue("queue:///" + QUEUE_NAME);                
+                //Create Consumer
+                 consumer = context.createConsumer(destination); // autoclosable 
+                */ 
+               
+                JmsFactoryFactory ff = JmsFactoryFactory.getInstance(WMQConstants.WMQ_PROVIDER);
+                JmsConnectionFactory cf = ff.createConnectionFactory();
+                System.out.println("== Jornal JMS 1.1 Conn Factory s is " + cf.getClass().getName());
+
+                cf.setStringProperty(WMQConstants.WMQ_HOST_NAME, HOST);
+                cf.setIntProperty(WMQConstants.WMQ_PORT, PORT);
+                cf.setStringProperty(WMQConstants.WMQ_CHANNEL, CHANNEL);
+                cf.setIntProperty(WMQConstants.WMQ_CONNECTION_MODE, WMQConstants.WMQ_CM_CLIENT);
+                cf.setStringProperty(WMQConstants.WMQ_QUEUE_MANAGER, QMGR);
+                cf.setStringProperty(WMQConstants.WMQ_APPLICATIONNAME, "Journal App");
+                cf.setBooleanProperty(WMQConstants.USER_AUTHENTICATION_MQCSP, true);
+                cf.setStringProperty(WMQConstants.USERID, APP_USER);
+                cf.setStringProperty(WMQConstants.PASSWORD, APP_PASSWORD); 
+                              
+                connection = cf.createConnection();
+                connection.start();
+                Queue queue = session.createQueue(QUEUE_NAME);
+                session = connection.createSession(false,Session.AUTO_ACKNOWLEDGE);
+                messageConsumer = session.createConsumer(queue);                    
+               
                 
-        try {
-            //create ConnectionFactory            
-            MQQueueConnectionFactory cf = new MQQueueConnectionFactory();
-            System.out.println("== Journal MQ Conn Factory s is " + cf.getClass().getName());
-            
-            cf.setTransportType(WMQConstants.WMQ_CM_CLIENT);
-            cf.setQueueManager(QMGR);
-            cf.setHostName(HOST);
-            cf.setPort(PORT);
-            cf.setChannel(CHANNEL);
-                        
-            MQQueue queue = new MQQueue(QUEUE_NAME);
-            //queue.setPersistence(WMQConstants.WMQ_PER_PER);
-            
-            // Create Destination
-            JMSContext context = cf.createContext();
-            consumer = context.createConsumer(queue);              
-            
-        } catch (JMSException ex) {
-            Logger.getLogger(JournalEngine.class.getName()).log(Level.SEVERE, null, ex);
-        }   
-        
+            } catch (JMSException ex) {
+                
+            }    
     }
     
-    // JMS Extention    
+
+     // JMS 2.0, JMS Extention    
     /*private JournalEngine () { 
              try {
                 //create ConnectionFactory
                 JmsFactoryFactory ff = JmsFactoryFactory.getInstance(WMQConstants.WMQ_PROVIDER);
                 JmsConnectionFactory cf = ff.createConnectionFactory();
-                System.out.println("== Jornal JMS Conn Factory s is " + cf.getClass().getName());
+                System.out.println("== Jornal JMS 2.0 Conn Factory s is " + cf.getClass().getName());
 
                 cf.setStringProperty(WMQConstants.WMQ_HOST_NAME, HOST);
                 cf.setIntProperty(WMQConstants.WMQ_PORT, PORT);
@@ -84,20 +118,57 @@ public final class  JournalEngine {
                 
             }    
     }*/
+    //  JMS 2.0, MQ Extention
+    /*  private JournalEngine () {                 
+        try {
+            //create ConnectionFactory            
+            MQQueueConnectionFactory cf = new MQQueueConnectionFactory();
+            System.out.println("== Journal MQ Conn Factory s is " + cf.getClass().getName());
+            
+            cf.setTransportType(WMQConstants.WMQ_CM_CLIENT);
+            cf.setQueueManager(QMGR);
+            cf.setHostName(HOST);
+            cf.setPort(PORT);
+            cf.setChannel(CHANNEL);
+                        
+            MQQueue queue = new MQQueue(QUEUE_NAME);
+            //queue.setPersistence(WMQConstants.WMQ_PER_PER);
+            
+            // Create Destination
+            JMSContext context = cf.createContext();
+            consumer = context.createConsumer(queue);              
+            
+        } catch (JMSException ex) {
+            Logger.getLogger(JournalEngine.class.getName()).log(Level.SEVERE, null, ex);
+        }         
+    }*/    
+   
     public static JournalEngine getInstance() {         
         return INSTANCE;
     }
     
-    public void start() {          
+    /*public void start() {          
         start=true;
         while (start==true) {
                String receivedMessage = consumer.receiveBody(String.class, 4000); // in ms or 3 seconds
                System.out.println("== Journal Receive message:\n" + receivedMessage );
         }    
-    }
-    public void stop() {
+    }*/
+    public void start() throws JMSException {          
+        start=true;
+        while (start==true) {
+               TextMessage receivedMessage = (TextMessage) messageConsumer.receive(4000);// in ms or 4 seconds
+               System.out.println("== Journal Receive message:\n" + receivedMessage );
+            }
+    }      
+    
+    public void stop() throws JMSException {
         start=false;
-        System.out.println("== Journal has been stop " );
+        messageConsumer.close();
+        session.close();
+        connection.close();
+        
+        System.out.println("== Journal has been stop " );        
     }     
         
 }
