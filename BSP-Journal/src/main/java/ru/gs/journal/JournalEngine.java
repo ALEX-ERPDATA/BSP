@@ -27,7 +27,7 @@ public final class  JournalEngine {
     private static JmsConnectionFactory cf;
     
     private static final String HOST = "ARM2"; // Host name or IP address
-    private static final int PORT = 1414; // Listener port for your queue manager
+    private static final int PORT = 3000; // Listener port for your queue manager
     private static final String CHANNEL = "SYSTEM.ADMIN.SVRCONN"; // Channel name
     private static final String QMGR = "HABR_QUEUE_MANAGER"; // Queue manager name
     private static final String APP_USER = "WAS_USER1"; // User name that application uses to connect to MQ
