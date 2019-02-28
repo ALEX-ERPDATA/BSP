@@ -1,13 +1,9 @@
 package ru.gs.journal;
 
-import com.ibm.jms.*;
-import com.ibm.mq.jms.*;
-
 import com.ibm.msg.client.jms.JmsConnectionFactory;
 import com.ibm.msg.client.jms.JmsFactoryFactory;
 import com.ibm.msg.client.wmq.WMQConstants;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javax.jms.Connection;
 import javax.jms.Destination;
 import javax.jms.JMSContext;
