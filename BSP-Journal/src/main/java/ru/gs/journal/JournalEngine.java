@@ -150,18 +150,18 @@ public final class  JournalEngine {
             session = connection.createSession(false,Session.AUTO_ACKNOWLEDGE);
             Queue queue = session.createQueue(QUEUE_NAME);                
             messageConsumer = session.createConsumer(queue); 
+            
             connection.start();
             isStart=true;
-        } else {
-             System.out.println("== Journal's already runnig..." );
-        }
+            System.out.println("== Journal has been start " );                
              
-        
-        System.out.println("== Journal has been start " );                
-        while (isStart==true) {
+            while (isStart==true) {
                TextMessage receivedMessage = (TextMessage) messageConsumer.receive(4000);// in ms or 4 seconds
                System.out.println("== Journal Receive message:\n" + receivedMessage );
-        }
+            }
+        } else {
+             System.out.println("== Journal's already runnig..." );
+        }      
     }      
     
     public void stop() throws JMSException {
