@@ -74,8 +74,8 @@ public final class  JournalEngine {
                               
                 connection = cf.createConnection();
                 connection.start();
-                Queue queue = session.createQueue(QUEUE_NAME);
                 session = connection.createSession(false,Session.AUTO_ACKNOWLEDGE);
+                Queue queue = session.createQueue(QUEUE_NAME);                
                 messageConsumer = session.createConsumer(queue);                    
                
                 
