@@ -72,13 +72,11 @@ public final class  JournalEngine {
                 cf.setStringProperty(WMQConstants.USERID, APP_USER);
                 cf.setStringProperty(WMQConstants.PASSWORD, APP_PASSWORD); 
                               
-                connection = cf.createConnection();
-                connection.start();
+                connection = cf.createConnection();         
                 session = connection.createSession(false,Session.AUTO_ACKNOWLEDGE);
                 Queue queue = session.createQueue(QUEUE_NAME);                
                 messageConsumer = session.createConsumer(queue);                    
-               
-                
+                               
             } catch (JMSException ex) {
                 
             }    
@@ -151,11 +149,14 @@ public final class  JournalEngine {
         }    
     }*/
     public void start() throws JMSException {          
+        connection.start();
+        
         start=true;
+        System.out.println("== Journal has been start " );                
         while (start==true) {
                TextMessage receivedMessage = (TextMessage) messageConsumer.receive(4000);// in ms or 4 seconds
                System.out.println("== Journal Receive message:\n" + receivedMessage );
-            }
+        }
     }      
     
     public void stop() throws JMSException {
