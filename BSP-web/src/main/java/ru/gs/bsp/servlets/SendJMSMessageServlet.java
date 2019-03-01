@@ -51,7 +51,11 @@ public class SendJMSMessageServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String message = request.getParameter(MESSAGE_PARAMETER_NAME);
        //Отправить в очередь
+        try { 
         JMSService.getInstatnce().processMessage(message);
+        } catch (Exception ex) {
+            
+        }
         
        //request.setAttribute(MESSAGE_PARAMETER_NAME, (jmsMessage.processMessage(message)) ? MESSAGE_SENDING_SUCCESS : MESSAGE_SENDING_ERROR);
        // request.getRequestDispatcher("/viewMessage.jsp").forward(request, response);
