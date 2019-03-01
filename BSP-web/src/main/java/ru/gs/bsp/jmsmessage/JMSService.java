@@ -35,7 +35,7 @@ public class JMSService {
     */
     private JMSService() {   
         try {
-            // Create a connection factory  JMS 2.0
+       
                
             //JmsFactoryFactory ff = JmsFactoryFactory.getInstance(WMQConstants.WMQ_PROVIDER);
             //JmsConnectionFactory cf = ff.createConnectionFactory();
@@ -55,7 +55,8 @@ public class JMSService {
             // Create JMS Destination
              try {
                 Context ctx = new InitialContext();
-                cf = (JmsConnectionFactory) ctx.lookup("java:comp/env/QMHabr");
+                //cf = (JmsConnectionFactory) ctx.lookup("java:comp/env/QMHabr");
+                cf = (JmsConnectionFactory) ctx.lookup("java:comp/env/jms/QCF_HABR_QUEUE_MANAGER ");
                 destination = (Destination) ctx.lookup("java:comp/env/jms/HOME.TO.ES");
             } catch (NamingException e) {
                 throw new EJBException(e);
