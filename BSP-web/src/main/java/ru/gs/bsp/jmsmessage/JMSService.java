@@ -5,14 +5,11 @@ import com.ibm.msg.client.jms.JmsFactoryFactory;
 import com.ibm.msg.client.wmq.WMQConstants;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.ejb.EJBException;
 import javax.jms.Destination;
 import javax.jms.JMSConnectionFactory;
 import javax.jms.JMSContext;
-import javax.jms.JMSProducer;
 import javax.jms.JMSException;
-import javax.jms.Queue;
-import javax.jms.QueueConnectionFactory;
+import javax.jms.JMSProducer;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -33,9 +30,10 @@ public class JMSService {
     private static final String APP_PASSWORD = "WAS_USER1"; // Password that the application uses to connect to MQ
     private static final String QUEUE_NAME = "HOME.TO.ES"; // Queue that the applicatio
     */
-    private JMSService() {   
-        //try {
-                      
+    private JMSService()   {   
+        try {
+            //try {
+            
             //JmsFactoryFactory ff = JmsFactoryFactory.getInstance(WMQConstants.WMQ_PROVIDER);
             //JmsConnectionFactory cf = ff.createConnectionFactory();
                      
@@ -52,19 +50,20 @@ public class JMSService {
             */
              
             // Create JMS Destination
-        try {
+        
             Context ctx = new InitialContext();
             //cf = (JmsConnectionFactory) ctx.lookup("java:comp/env/QMHabr");                
             //destination = (Destination) ctx.lookup("java:comp/env/jms/HOME.TO.ES");
             cf = (JmsConnectionFactory) ctx.lookup("jms/QCF_HABR_QUEUE_MANAGER");
-            destination = (Destination) ctx.lookup("/jms/HOME.TO.ES");
+            destination = (Destination) ctx.lookup("jms/HOME.TO.ES");
             context = cf.createContext();
             
-             // destination = context.createQueue("queue:///" + QUEUE_NAME);
-             
-        } catch (Exception ex) {
+            // destination = context.createQueue("queue:///" + QUEUE_NAME);
+        } catch (NamingException ex) {
             Logger.getLogger(JMSService.class.getName()).log(Level.SEVERE, null, ex);
         }
+             
+        
     }
 
     public static JMSService getInstatnce() {      
@@ -73,20 +72,17 @@ public class JMSService {
     
     public boolean processMessage(String message) {
 
-        boolean answer = true;
-
-        try {               
+            boolean answer = false;
+                       
             //Create Producer
             JMSProducer producer = context.createProducer();
                        
            //Send the message
             producer.send(destination, message);
+            answer = true;
             System.out.println("==Sent message:\n" + message);  
-                       
-        } catch (Exception ex){
-            answer = false;
-            Logger.getLogger(JMSService.class.getName()).log(Level.SEVERE, null, ex);           
-        }
+            
+        
         return answer;
     }
 

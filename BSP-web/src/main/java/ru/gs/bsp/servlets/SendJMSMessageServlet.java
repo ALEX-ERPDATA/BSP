@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.jms.JMSException;
 import javax.jms.Queue;
 import javax.jms.QueueConnection;
@@ -50,11 +52,12 @@ public class SendJMSMessageServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         String message = request.getParameter(MESSAGE_PARAMETER_NAME);
+        
        //Отправить в очередь
         try { 
-        JMSService.getInstatnce().processMessage(message);
+            JMSService.getInstatnce().processMessage(message);
         } catch (Exception ex) {
-            
+                Logger.getLogger(JMSService.class.getName()).log(Level.SEVERE, null, ex);
         }
         
        //request.setAttribute(MESSAGE_PARAMETER_NAME, (jmsMessage.processMessage(message)) ? MESSAGE_SENDING_SUCCESS : MESSAGE_SENDING_ERROR);
