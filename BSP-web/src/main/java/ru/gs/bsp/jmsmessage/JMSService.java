@@ -10,6 +10,8 @@ import javax.jms.JMSConnectionFactory;
 import javax.jms.JMSContext;
 import javax.jms.JMSException;
 import javax.jms.JMSProducer;
+import javax.jms.Queue;
+import javax.jms.QueueConnectionFactory;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -18,9 +20,9 @@ public class JMSService {
 
     private final static JMSService SERVICE = new JMSService();  
     
-    private static JmsConnectionFactory cf = null;
+    private static QueueConnectionFactory cf = null;
     private static JMSContext context = null;
-    private static Destination destination = null;
+    private static Queue  destination = null;
     /*
     private static final String HOST = "ARM2"; // Host name or IP address
     private static final int PORT = 3000; // Listener port for your queue manager
@@ -49,10 +51,12 @@ public class JMSService {
             cf.setStringProperty(WMQConstants.PASSWORD, APP_PASSWORD);
             */
              
+      
+            
             // Create JMS Destination        
             Context ctx = new InitialContext();
-            cf = (JmsConnectionFactory) ctx.lookup("jms/QCF_HABR_QUEUE_MANAGER");
-            destination = (Destination) ctx.lookup("jms/HOME.TO.ES");
+            cf = (QueueConnectionFactory) ctx.lookup("jms/QCF_HABR_QUEUE_MANAGER");
+            destination = (Queue) ctx.lookup("jms/HOME.TO.ES");
             context = cf.createContext();
             
             // destination = context.createQueue("queue:///" + QUEUE_NAME);
@@ -75,7 +79,7 @@ public class JMSService {
             JMSProducer producer = context.createProducer();
                        
            //Send the message
-            producer.send(destination, message);
+            producer.send(destination, message);           
             answer = true;
             System.out.println("==Sent message:\n" + message);  
             
