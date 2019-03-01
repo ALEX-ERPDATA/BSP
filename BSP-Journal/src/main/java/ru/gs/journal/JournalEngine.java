@@ -43,7 +43,7 @@ public final class  JournalEngine {
                               
                 JmsFactoryFactory ff = JmsFactoryFactory.getInstance(WMQConstants.WMQ_PROVIDER);
                 cf = ff.createConnectionFactory();
-                System.out.println("== Jornal JMS 1.1 Conn Factory s is " + cf.getClass().getName());
+                System.out.println("== Jornal JMS  Conn Factory s is " + cf.getClass().getName());
 
                 cf.setStringProperty(WMQConstants.WMQ_HOST_NAME, HOST);
                 cf.setIntProperty(WMQConstants.WMQ_PORT, PORT);
@@ -91,7 +91,7 @@ public final class  JournalEngine {
     }    
    
     //JMS 1.1
-    /*
+    
     private void setDestination() {        
         try {
             //Create Destination
@@ -102,7 +102,7 @@ public final class  JournalEngine {
             Logger.getLogger(JournalEngine.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    /*
+    
     public void start() throws JMSException {          
         if (isStart==false) {        
             connection = cf.createConnection();         
@@ -112,12 +112,31 @@ public final class  JournalEngine {
             connection.start();
             isStart=true;
             System.out.println("== Journal has been start " );                
-            sendMessage(); 
-          
+            //sendMessage(); 
+            while (isStart==true) {
+                try {
+                    TextMessage receivedMessage = (TextMessage) messageConsumer.receive(4000);// in ms or 4 seconds
+                    System.out.println("== Journal Receive message:\n" + receivedMessage );
+                } catch (JMSException ex) {
+                    Logger.getLogger(JournalEngine.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         } else {
              System.out.println("== Journal's already runnig..." );
         }      
-    } 
+    }
+    
+    private void sendMessage() {
+          while (isStart==true) {
+              try {
+                  TextMessage receivedMessage = (TextMessage) messageConsumer.receive(4000);// in ms or 4 seconds
+                  System.out.println("== Journal Receive message:\n" + receivedMessage );
+              } catch (JMSException ex) {
+                  Logger.getLogger(JournalEngine.class.getName()).log(Level.SEVERE, null, ex);
+              }
+            }
+    
+    }
        public void stop() throws JMSException {
         isStart=false;
         messageConsumer.close();
@@ -126,16 +145,17 @@ public final class  JournalEngine {
         
         System.out.println("== Journal has been stop " );        
     }
- */   
+   
 
     //JMS 2.0 - control COnnection and Session on side WAS  throught using Context
+    /*
     private void setDestination() {
          // Create JMS Destination
                 JMSContext context = cf.createContext();
                 Destination destination = context.createQueue("queue:///" + QUEUE_NAME);
                 
                 //Create Consumer
-                 JMSConsumer consumer = context.createConsumer(destination); // autoclosable 
+                 consumer = context.createConsumer(destination); // autoclosable 
      }
     
      public void start() throws JMSException {          
@@ -157,7 +177,7 @@ public final class  JournalEngine {
         isStart=false;       
         System.out.println("== Journal has been stop " );        
     }
-  
+  */
     
        
         
