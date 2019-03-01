@@ -55,8 +55,8 @@ public class JMSService {
             
             // Create JMS Destination        
             Context ctx = new InitialContext();
-            cf = (QueueConnectionFactory) ctx.lookup("java:comp/env/jms/QCF_HABR_QUEUE_MANAGER");
-            destination = (Queue) ctx.lookup(        "java:comp/env/jms/HOME.TO.ES");
+            cf = (QueueConnectionFactory) ctx.lookup("java:app/env/jms/QCF_HABR_QUEUE_MANAGER");
+            destination = (Queue) ctx.lookup(        "java:app/env/jms/HOME.TO.ES");
             context = cf.createContext();
             
             // destination = context.createQueue("queue:///" + QUEUE_NAME);

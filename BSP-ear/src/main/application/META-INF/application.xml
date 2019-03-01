@@ -5,12 +5,19 @@
 		<web-uri>BSP-web-1.0.war</web-uri>
 		<context-root>/BSP</context-root>
             </web>
-	</module>
-        <resource-ref>
+	</module>  
+    <resource-ref>
             <description>Фабрика соединений</description>
             <res-ref-name>jms/QCF_HABR_QUEUE_MANAGER</res-ref-name>
             <res-type>javax.jms.QueueConnectionFactory</res-type>
             <res-auth>Container</res-auth>
             <res-sharing-scope>Unshareable</res-sharing-scope>
-        </resource-ref>
+    </resource-ref>
+    <resource-ref>
+                <description></description>
+                <res-ref-name>jms/HOME.TO.ES</res-ref-name>
+                <res-type>javax.jms.Queue</res-type>
+                <res-auth>Container</res-auth>
+                <res-sharing-scope>Unshareable</res-sharing-scope>
+    </resource-ref>     
 </application>
