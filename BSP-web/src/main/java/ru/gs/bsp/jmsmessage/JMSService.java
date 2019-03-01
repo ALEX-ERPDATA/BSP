@@ -33,7 +33,7 @@ public class JMSService {
     private static final String APP_PASSWORD = "WAS_USER1"; // Password that the application uses to connect to MQ
     private static final String QUEUE_NAME = "HOME.TO.ES"; // Queue that the applicatio
     */
-    private JMSService() { 
+    private JMSService() {   
         try {
             // Create a connection factory  JMS 2.0
                
