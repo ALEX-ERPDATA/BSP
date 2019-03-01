@@ -27,7 +27,7 @@
             <version>9.0.4.0</version>
             <scope>compile</scope>
         </dependency>
-        <!--dependency>
+        <!--dependency Already distributed in allclient.jar>
             <groupId>javax.jms</groupId>
             <artifactId>javax.jms-api</artifactId>
             <version>2.0.1</version>
@@ -40,12 +40,6 @@
             <version>7.0</version>
             <scope>provided</scope>
         </dependency>
-         <!--dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
-            <version>7.0</version>
-            <scope>provided</scope>
-         </dependency-->
          <!--dependency>
              <groupId>ru.gs</groupId>
              <artifactId>BSP-ejb</artifactId>
