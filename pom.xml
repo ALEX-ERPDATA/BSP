@@ -10,7 +10,7 @@
    <modules>
     <module>BSP-ear</module>
     <module>BSP-web</module>
-    <module>BSP-Journal</module>
+    <!--module>BSP-Journal</module-->
     <!--module>BSP-ejb</module-->	
   </modules>    
   
