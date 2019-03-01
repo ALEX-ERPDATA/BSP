@@ -37,7 +37,8 @@ public final class  JournalEngine {
     private static final String APP_PASSWORD = "WAS_USER1"; // Password that the application uses to connect to MQ
     private static final String QUEUE_NAME = "HOME.TO.ES"; // Queue that the applicatio
     
-    //  JMS Extention  ( both 1.1 and 2.0)
+    // SWITCH VERSION JMS API TO IF NEED 2.0
+    //  JMS Extention  ( both 1.1 and 2.0) , 
     private JournalEngine () { 
              try {
                               
@@ -111,7 +112,7 @@ public final class  JournalEngine {
             
             connection.start();
             isStart=true;
-            System.out.println("== Journal has been start " );                
+            System.out.println("== Journal has been start " );                 
          
             while (isStart==true) {
                 try {
