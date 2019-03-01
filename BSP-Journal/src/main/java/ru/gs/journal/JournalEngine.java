@@ -112,7 +112,7 @@ public final class  JournalEngine {
             connection.start();
             isStart=true;
             System.out.println("== Journal has been start " );                
-            //sendMessage(); 
+         
             while (isStart==true) {
                 try {
                     TextMessage receivedMessage = (TextMessage) messageConsumer.receive(4000);// in ms or 4 seconds
@@ -126,18 +126,8 @@ public final class  JournalEngine {
         }      
     }
     
-    private void sendMessage() {
-          while (isStart==true) {
-              try {
-                  TextMessage receivedMessage = (TextMessage) messageConsumer.receive(4000);// in ms or 4 seconds
-                  System.out.println("== Journal Receive message:\n" + receivedMessage );
-              } catch (JMSException ex) {
-                  Logger.getLogger(JournalEngine.class.getName()).log(Level.SEVERE, null, ex);
-              }
-            }
-    
-    }
-       public void stop() throws JMSException {
+
+    public void stop() throws JMSException {
         isStart=false;
         messageConsumer.close();
         session.close();
