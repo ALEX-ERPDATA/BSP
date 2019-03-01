@@ -21,7 +21,8 @@ public final class  JournalEngine {
     private static final JournalEngine INSTANCE = new JournalEngine() ;
     private static boolean isStart ;
     // for JMS 2.0
-    // private static JMSConsumer consumer;
+     private static JMSConsumer consumer;
+    
     // for JMS 1.1
     private static Connection connection ;
     private static Session session ;
@@ -36,7 +37,7 @@ public final class  JournalEngine {
     private static final String APP_PASSWORD = "WAS_USER1"; // Password that the application uses to connect to MQ
     private static final String QUEUE_NAME = "HOME.TO.ES"; // Queue that the applicatio
     
-    //  JMS Extention  ( 1.1 and 2.0)
+    //  JMS Extention  ( both 1.1 and 2.0)
     private JournalEngine () { 
              try {
                               
@@ -58,38 +59,7 @@ public final class  JournalEngine {
                 
             }    
     }
-    
-
-     // JMS 2.0, JMS Extention - using Context   
-     /*private JournalEngine () { 
-             try {
-                //create ConnectionFactory
-                JmsFactoryFactory ff = JmsFactoryFactory.getInstance(WMQConstants.WMQ_PROVIDER);
-                JmsConnectionFactory cf = ff.createConnectionFactory();
-                System.out.println("== Jornal JMS 2.0 Conn Factory s is " + cf.getClass().getName());
-
-                cf.setStringProperty(WMQConstants.WMQ_HOST_NAME, HOST);
-                cf.setIntProperty(WMQConstants.WMQ_PORT, PORT);
-                cf.setStringProperty(WMQConstants.WMQ_CHANNEL, CHANNEL);
-                cf.setIntProperty(WMQConstants.WMQ_CONNECTION_MODE, WMQConstants.WMQ_CM_CLIENT);
-                cf.setStringProperty(WMQConstants.WMQ_QUEUE_MANAGER, QMGR);
-                cf.setStringProperty(WMQConstants.WMQ_APPLICATIONNAME, "Audit Rec");
-                cf.setBooleanProperty(WMQConstants.USER_AUTHENTICATION_MQCSP, true);
-                cf.setStringProperty(WMQConstants.USERID, APP_USER);
-                cf.setStringProperty(WMQConstants.PASSWORD, APP_PASSWORD);
-
-                // Create JMS Destination
-                JMSContext context = cf.createContext();
-                Destination destination = context.createQueue("queue:///" + QUEUE_NAME);
-                
-                //Create Consumer
-                 consumer = context.createConsumer(destination); // autoclosable 
-                
-            } catch (JMSException ex) {
-                
-            }    
-    }*/
-    
+  
     //  JMS 2.0, MQ Extention - using MQQueueConnectionFactory and MQQueue
     /*  private JournalEngine () {                 
         try {
@@ -132,7 +102,7 @@ public final class  JournalEngine {
             Logger.getLogger(JournalEngine.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+    /*
     public void start() throws JMSException {          
         if (isStart==false) {        
             connection = cf.createConnection();         
@@ -148,9 +118,17 @@ public final class  JournalEngine {
              System.out.println("== Journal's already runnig..." );
         }      
     } 
+       public void stop() throws JMSException {
+        isStart=false;
+        messageConsumer.close();
+        session.close();
+        connection.close();
+        
+        System.out.println("== Journal has been stop " );        
+    }
  */   
 
-    //JMS 2.0 - control COnnection and Session on side WAS  throug using Context
+    //JMS 2.0 - control COnnection and Session on side WAS  throught using Context
     private void setDestination() {
          // Create JMS Destination
                 JMSContext context = cf.createContext();
@@ -163,36 +141,25 @@ public final class  JournalEngine {
      public void start() throws JMSException {          
         if (isStart==false) {        
             isStart=true;            
-            setDestination();
+            setDestination();            
             System.out.println("== Journal has been start " );                
             
-            sendMessage(); 
+            while (isStart==true) {           
+                TextMessage receivedMessage = (TextMessage) consumer.receive(4000);// in ms or 4 seconds
+                System.out.println("== Journal Receive message:\n" + receivedMessage );
+           
+            }            
         } else {
              System.out.println("== Journal's already runnig..." );
         }  
-    
-    //   
-    }
-    private void sendMessage() {
-          while (isStart==true) {
-              try {
-                  TextMessage receivedMessage = (TextMessage) messageConsumer.receive(4000);// in ms or 4 seconds
-                  System.out.println("== Journal Receive message:\n" + receivedMessage );
-              } catch (JMSException ex) {
-                  Logger.getLogger(JournalEngine.class.getName()).log(Level.SEVERE, null, ex);
-              }
-            }
-    
-    }
-    
+   }
     public void stop() throws JMSException {
-        isStart=false;
-        messageConsumer.close();
-        session.close();
-        connection.close();
-        
+        isStart=false;       
         System.out.println("== Journal has been stop " );        
-    }     
+    }
+  
+    
+       
         
 }
     
