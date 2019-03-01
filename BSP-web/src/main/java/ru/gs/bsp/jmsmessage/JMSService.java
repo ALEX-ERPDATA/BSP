@@ -34,9 +34,8 @@ public class JMSService {
     private static final String QUEUE_NAME = "HOME.TO.ES"; // Queue that the applicatio
     */
     private JMSService() {   
-        try {
-       
-               
+        //try {
+                      
             //JmsFactoryFactory ff = JmsFactoryFactory.getInstance(WMQConstants.WMQ_PROVIDER);
             //JmsConnectionFactory cf = ff.createConnectionFactory();
                      
@@ -53,17 +52,13 @@ public class JMSService {
             */
              
             // Create JMS Destination
-             try {
-                Context ctx = new InitialContext();
-                //cf = (JmsConnectionFactory) ctx.lookup("java:comp/env/QMHabr");                
-                //destination = (Destination) ctx.lookup("java:comp/env/jms/HOME.TO.ES");
-                cf = (JmsConnectionFactory) ctx.lookup("jms/QCF_HABR_QUEUE_MANAGER");
-                destination = (Destination) ctx.lookup("/jms/HOME.TO.ES");
-            } catch (NamingException e) {
-                throw new EJBException(e);
-            }
-            
-             context = cf.createContext();
+        try {
+            Context ctx = new InitialContext();
+            //cf = (JmsConnectionFactory) ctx.lookup("java:comp/env/QMHabr");                
+            //destination = (Destination) ctx.lookup("java:comp/env/jms/HOME.TO.ES");
+            cf = (JmsConnectionFactory) ctx.lookup("jms/QCF_HABR_QUEUE_MANAGER");
+            destination = (Destination) ctx.lookup("/jms/HOME.TO.ES");
+            context = cf.createContext();
             
              // destination = context.createQueue("queue:///" + QUEUE_NAME);
              
