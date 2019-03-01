@@ -21,9 +21,9 @@ public class JMSService {
 
     private final static JMSService SERVICE = new JMSService();  
     
-    private static ConnectionFactory cf = null; 
+    private static QueueConnectionFactory cf = null; 
+    private static Queue  destination = null;
     private static JMSContext context = null;
-    private static Destination  destination = null;
     /*
     private static final String HOST = "ARM2"; // Host name or IP address
     private static final int PORT = 3000; // Listener port for your queue manager
@@ -50,14 +50,13 @@ public class JMSService {
             cf.setBooleanProperty(WMQConstants.USER_AUTHENTICATION_MQCSP, true);
             cf.setStringProperty(WMQConstants.USERID, APP_USER);
             cf.setStringProperty(WMQConstants.PASSWORD, APP_PASSWORD);
-            */
-             
+            */             
       
             
             // Create JMS Destination        
             Context ctx = new InitialContext();
-            cf = (ConnectionFactory) ctx.lookup("jms/QCF_HABR_QUEUE_MANAGER");
-            destination = (Destination) ctx.lookup("jms/HOME.TO.ES");
+            cf = (QueueConnectionFactory) ctx.lookup("java:comp/env/QMHabr");
+            destination = (Queue) ctx.lookup("java:comp/env/jms/HOME.TO.ES");
             context = cf.createContext();
             
             // destination = context.createQueue("queue:///" + QUEUE_NAME);
