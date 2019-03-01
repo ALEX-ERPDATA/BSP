@@ -121,6 +121,7 @@ public final class  JournalEngine {
     }    
    
     //JMS 1.1
+    /*
     private void setDestination() {        
         try {
             //Create Destination
@@ -147,9 +148,9 @@ public final class  JournalEngine {
              System.out.println("== Journal's already runnig..." );
         }      
     } 
-    
-//JMS 2.0 - no control COnnection and Session, using Context
-    /* 
+ */   
+
+    //JMS 2.0 - control COnnection and Session on side WAS  throug using Context
     private void setDestination() {
          // Create JMS Destination
                 JMSContext context = cf.createContext();
@@ -159,13 +160,19 @@ public final class  JournalEngine {
                  JMSConsumer consumer = context.createConsumer(destination); // autoclosable 
      }
     
-     public void start() {          
-        start=true;
-        while (start==true) { 
-               String receivedMessage = consumer.receiveBody(String.class, 4000); // in ms or 3 seconds
-               System.out.println("== Journal Receive message:\n" + receivedMessage );
-        }    
-    }*/
+     public void start() throws JMSException {          
+        if (isStart==false) {        
+            isStart=true;            
+            setDestination();
+            System.out.println("== Journal has been start " );                
+            
+            sendMessage(); 
+        } else {
+             System.out.println("== Journal's already runnig..." );
+        }  
+    
+    //   
+    }
     private void sendMessage() {
           while (isStart==true) {
               try {
