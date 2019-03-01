@@ -55,9 +55,10 @@ public class JMSService {
             // Create JMS Destination
              try {
                 Context ctx = new InitialContext();
-                //cf = (JmsConnectionFactory) ctx.lookup("java:comp/env/QMHabr");
-                cf = (JmsConnectionFactory) ctx.lookup("java:comp/env/jms/QCF_HABR_QUEUE_MANAGER ");
-                destination = (Destination) ctx.lookup("java:comp/env/jms/HOME.TO.ES");
+                //cf = (JmsConnectionFactory) ctx.lookup("java:comp/env/QMHabr");                
+                //destination = (Destination) ctx.lookup("java:comp/env/jms/HOME.TO.ES");
+                cf = (JmsConnectionFactory) ctx.lookup("jms/QCF_HABR_QUEUE_MANAGER");
+                destination = (Destination) ctx.lookup("/jms/HOME.TO.ES");
             } catch (NamingException e) {
                 throw new EJBException(e);
             }
