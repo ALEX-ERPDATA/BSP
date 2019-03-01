@@ -5,6 +5,7 @@ import com.ibm.msg.client.jms.JmsFactoryFactory;
 import com.ibm.msg.client.wmq.WMQConstants;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
 import javax.jms.JMSConnectionFactory;
 import javax.jms.JMSContext;
@@ -20,9 +21,9 @@ public class JMSService {
 
     private final static JMSService SERVICE = new JMSService();  
     
-    private static QueueConnectionFactory cf = null; 
+    private static ConnectionFactory cf = null; 
     private static JMSContext context = null;
-    private static Queue  destination = null;
+    private static Destination  destination = null;
     /*
     private static final String HOST = "ARM2"; // Host name or IP address
     private static final int PORT = 3000; // Listener port for your queue manager
@@ -55,8 +56,8 @@ public class JMSService {
             
             // Create JMS Destination        
             Context ctx = new InitialContext();
-            cf = (QueueConnectionFactory) ctx.lookup("jms/QCF_HABR_QUEUE_MANAGER");
-            destination = (Queue) ctx.lookup("jms/HOME.TO.ES");
+            cf = (ConnectionFactory) ctx.lookup("jms/QCF_HABR_QUEUE_MANAGER");
+            destination = (Destination) ctx.lookup("jms/HOME.TO.ES");
             context = cf.createContext();
             
             // destination = context.createQueue("queue:///" + QUEUE_NAME);
