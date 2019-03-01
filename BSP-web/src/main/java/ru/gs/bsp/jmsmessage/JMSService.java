@@ -20,7 +20,7 @@ public class JMSService {
 
     private final static JMSService SERVICE = new JMSService();  
     
-    private static QueueConnectionFactory cf = null;
+    private static QueueConnectionFactory cf = null; 
     private static JMSContext context = null;
     private static Queue  destination = null;
     /*
