@@ -16,7 +16,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-public class JMSService {
+public class JMSService { 
 
     private final static JMSService SERVICE = new JMSService();  
     
