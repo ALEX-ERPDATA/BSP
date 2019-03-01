@@ -121,7 +121,7 @@ public final class  JournalEngine {
     }    
    
     //JMS 1.1
-    private void setDestination () {        
+    private void setDestination() {        
         try {
             //Create Destination
             Queue queue = session.createQueue(QUEUE_NAME);
@@ -141,11 +141,8 @@ public final class  JournalEngine {
             connection.start();
             isStart=true;
             System.out.println("== Journal has been start " );                
-             
-            while (isStart==true) {
-               TextMessage receivedMessage = (TextMessage) messageConsumer.receive(4000);// in ms or 4 seconds
-               System.out.println("== Journal Receive message:\n" + receivedMessage );
-            }
+            sendMessage(); 
+          
         } else {
              System.out.println("== Journal's already runnig..." );
         }      
@@ -153,7 +150,7 @@ public final class  JournalEngine {
     
 //JMS 2.0 - no control COnnection and Session, using Context
     /* 
-    private void setDestination () {
+    private void setDestination() {
          // Create JMS Destination
                 JMSContext context = cf.createContext();
                 Destination destination = context.createQueue("queue:///" + QUEUE_NAME);
@@ -169,6 +166,17 @@ public final class  JournalEngine {
                System.out.println("== Journal Receive message:\n" + receivedMessage );
         }    
     }*/
+    private void sendMessage() {
+          while (isStart==true) {
+              try {
+                  TextMessage receivedMessage = (TextMessage) messageConsumer.receive(4000);// in ms or 4 seconds
+                  System.out.println("== Journal Receive message:\n" + receivedMessage );
+              } catch (JMSException ex) {
+                  Logger.getLogger(JournalEngine.class.getName()).log(Level.SEVERE, null, ex);
+              }
+            }
+    
+    }
     
     public void stop() throws JMSException {
         isStart=false;
