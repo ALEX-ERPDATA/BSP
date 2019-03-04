@@ -14,9 +14,9 @@ import javax.jms.Destination;
 public class JMSService { 
 
     private final static JMSService SERVICE = new JMSService();  
-    private static JmsConnectionFactory cf = null;
-    //private static JMSProducer producer = null;
-    //private static Destination destination = null;
+    
+    private static JMSProducer producer;
+    private static Destination destination ;
      
     private static final String HOST = "ARM2"; // Host name or IP address
     private static final int PORT = 3000; // Listener port for your queue manager
@@ -27,11 +27,10 @@ public class JMSService {
     private static final String QUEUE_NAME = "HOME.TO.ES"; // Queue that the applicatio
     
     //JMS 2.0 - control COnnection and Session on side WAS  throught using Context
-    private JMSService()   {   
-      
+    private JMSService()   {             
         try {
             JmsFactoryFactory ff = JmsFactoryFactory.getInstance(WMQConstants.WMQ_PROVIDER);
-            cf = ff.createConnectionFactory();
+            JmsConnectionFactory cf = ff.createConnectionFactory();
             
             cf.setStringProperty(WMQConstants.WMQ_HOST_NAME, HOST);
             cf.setIntProperty(WMQConstants.WMQ_PORT, PORT);
@@ -43,7 +42,11 @@ public class JMSService {
             cf.setStringProperty(WMQConstants.USERID, APP_USER);
             cf.setStringProperty(WMQConstants.PASSWORD, APP_PASSWORD);  
             
-            System.out.println("==conn fact1 = " + cf);
+            JMSContext context = cf.createContext();
+            
+            //Create Destination
+            destination = context.createQueue("queue:///" + QUEUE_NAME);
+            producer = context.createProducer(); // autoclosable
             
         } catch (JMSException ex) {
             Logger.getLogger(JMSService.class.getName()).log(Level.SEVERE, null, ex);
@@ -57,17 +60,7 @@ public class JMSService {
     public boolean sendMessage(String message) {
         
         boolean answer = false;
-        // Create Consumer
-        // consumer = context.createConsumer(queue); // autoclosable
-        
-        System.out.println("==conn fact2 = " + cf);
-        JMSContext context = cf.createContext();
-        //Create Destination
-        Destination destination = context.createQueue("queue:///" + QUEUE_NAME);
-        JMSProducer producer = context.createProducer(); // autoclosable
-        //Send the message
-        System.out.println("== Produser =" + producer);
-        System.out.println("== Message  =" + message);
+                     
         producer.send(destination, message);
         answer = true;
         System.out.println("==Sent message:\n" + message);
