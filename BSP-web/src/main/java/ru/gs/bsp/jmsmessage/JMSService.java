@@ -14,8 +14,9 @@ import javax.jms.Destination;
 public class JMSService { 
 
     private final static JMSService SERVICE = new JMSService();  
-    private static JMSProducer producer = null;
-    private static Destination destination = null;
+    private static JmsConnectionFactory cf = null;
+    //private static JMSProducer producer = null;
+    //private static Destination destination = null;
      
     private static final String HOST = "ARM2"; // Host name or IP address
     private static final int PORT = 3000; // Listener port for your queue manager
@@ -31,7 +32,7 @@ public class JMSService {
         try {
             //Create connection factory 
             JmsFactoryFactory ff = JmsFactoryFactory.getInstance(WMQConstants.WMQ_PROVIDER);
-            JmsConnectionFactory cf = ff.createConnectionFactory();
+            cf = ff.createConnectionFactory();
                         
             cf.setStringProperty(WMQConstants.WMQ_HOST_NAME, HOST);
             cf.setIntProperty(WMQConstants.WMQ_PORT, PORT);
@@ -43,11 +44,6 @@ public class JMSService {
             cf.setStringProperty(WMQConstants.USERID, APP_USER);
             cf.setStringProperty(WMQConstants.PASSWORD, APP_PASSWORD);
                          
-            JMSContext context = cf.createContext();
-            
-            //Create Destination         
-            destination = context.createQueue("queue:///" + QUEUE_NAME);
-            producer = context.createProducer(); // autoclosable
            
               // Create JMS context
             /*JMSContext context = cf.createContext();
@@ -73,14 +69,20 @@ public class JMSService {
     public boolean sendMessage(String message) {
 
             boolean answer = false;
-               
+                      
+            JMSContext context = cf.createContext();
+            
+            //Create Destination         
+            Destination destination = context.createQueue("queue:///" + QUEUE_NAME);
+            JMSProducer producer = context.createProducer(); // autoclosable
+            
            //Send the message
            System.out.println("== Produser =" + producer);               
            System.out.println("== Message  =" + message);              
            
            producer.send(destination, message);           
-            answer = true;
-            System.out.println("==Sent message:\n" + message);              
+           answer = true;
+           System.out.println("==Sent message:\n" + message);              
         
         return answer;
     }
