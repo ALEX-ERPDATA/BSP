@@ -41,7 +41,9 @@ public class JMSService {
             cf.setStringProperty(WMQConstants.WMQ_APPLICATIONNAME, "BSP APP");
             cf.setBooleanProperty(WMQConstants.USER_AUTHENTICATION_MQCSP, true);
             cf.setStringProperty(WMQConstants.USERID, APP_USER);
-            cf.setStringProperty(WMQConstants.PASSWORD, APP_PASSWORD);          
+            cf.setStringProperty(WMQConstants.PASSWORD, APP_PASSWORD);  
+            
+            System.out.println("==conn fact1 = " + cf);
             
         } catch (JMSException ex) {
             Logger.getLogger(JMSService.class.getName()).log(Level.SEVERE, null, ex);
@@ -58,6 +60,7 @@ public class JMSService {
         // Create Consumer
         // consumer = context.createConsumer(queue); // autoclosable
         
+        System.out.println("==conn fact2 = " + cf);
         JMSContext context = cf.createContext();
         //Create Destination
         Destination destination = context.createQueue("queue:///" + QUEUE_NAME);
