@@ -55,10 +55,10 @@ public class SendJMSMessageServlet extends HttpServlet {
         
        //Отправить в очередь
          
-            JMSService.getInstatnce().processMessage(message);
+            JMSService.getInstatnce().sendMessage(message);
         
         
-       //request.setAttribute(MESSAGE_PARAMETER_NAME, (jmsMessage.processMessage(message)) ? MESSAGE_SENDING_SUCCESS : MESSAGE_SENDING_ERROR);
+       //request.setAttribute(MESSAGE_PARAMETER_NAME, (jmsMessage.sendMessage(message)) ? MESSAGE_SENDING_SUCCESS : MESSAGE_SENDING_ERROR);
        // request.getRequestDispatcher("/viewMessage.jsp").forward(request, response);
     }
     
@@ -67,7 +67,7 @@ public class SendJMSMessageServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         String message = request.getParameter(MESSAGE_PARAMETER_NAME);
-        request.setAttribute(MESSAGE_PARAMETER_NAME, (jmsMessage.processMessage(message)) ? MESSAGE_SENDING_SUCCESS : MESSAGE_SENDING_ERROR);
+        request.setAttribute(MESSAGE_PARAMETER_NAME, (jmsMessage.sendMessage(message)) ? MESSAGE_SENDING_SUCCESS : MESSAGE_SENDING_ERROR);
         request.getRequestDispatcher("/viewMessage.jsp").forward(request, response);
     }*/
     
