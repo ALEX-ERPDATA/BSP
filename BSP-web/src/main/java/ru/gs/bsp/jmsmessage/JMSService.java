@@ -14,7 +14,7 @@ import javax.jms.Destination;
 public class JMSService { 
 
     private final static JMSService SERVICE = new JMSService();  
-    //private static JmsConnectionFactory cf = null;
+    private static JmsConnectionFactory cf = null;
     //private static JMSProducer producer = null;
     //private static Destination destination = null;
      
@@ -29,41 +29,10 @@ public class JMSService {
     //JMS 2.0 - control COnnection and Session on side WAS  throught using Context
     private JMSService()   {   
       
-        /*
         try {
-            //Create connection factory 
             JmsFactoryFactory ff = JmsFactoryFactory.getInstance(WMQConstants.WMQ_PROVIDER);
             cf = ff.createConnectionFactory();
-                        
-            cf.setStringProperty(WMQConstants.WMQ_HOST_NAME, HOST);
-            cf.setIntProperty(WMQConstants.WMQ_PORT, PORT);
-            cf.setStringProperty(WMQConstants.WMQ_CHANNEL, CHANNEL);
-            cf.setIntProperty(WMQConstants.WMQ_CONNECTION_MODE, WMQConstants.WMQ_CM_CLIENT);
-            cf.setStringProperty(WMQConstants.WMQ_QUEUE_MANAGER, QMGR);
-            cf.setStringProperty(WMQConstants.WMQ_APPLICATIONNAME, "BSP APP");
-            cf.setBooleanProperty(WMQConstants.USER_AUTHENTICATION_MQCSP, true);
-            cf.setStringProperty(WMQConstants.USERID, APP_USER);
-            cf.setStringProperty(WMQConstants.PASSWORD, APP_PASSWORD);         
             
-           // Create Consumer
-           // consumer = context.createConsumer(queue); // autoclosable                       
-        } catch (JMSException ex) {
-            Logger.getLogger(JMSService.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-        */
-    }
-
-    public static JMSService getInstatnce() {      
-        return SERVICE;
-    }
-    
-    public boolean sendMessage(String message) {
-        
-        boolean answer = false;
-        try {           
-            JmsFactoryFactory ff = JmsFactoryFactory.getInstance(WMQConstants.WMQ_PROVIDER);
-            JmsConnectionFactory cf = ff.createConnectionFactory();
-                        
             cf.setStringProperty(WMQConstants.WMQ_HOST_NAME, HOST);
             cf.setIntProperty(WMQConstants.WMQ_PORT, PORT);
             cf.setStringProperty(WMQConstants.WMQ_CHANNEL, CHANNEL);
@@ -74,28 +43,33 @@ public class JMSService {
             cf.setStringProperty(WMQConstants.USERID, APP_USER);
             cf.setStringProperty(WMQConstants.PASSWORD, APP_PASSWORD);          
             
-            // Create Consumer
-            // consumer = context.createConsumer(queue); // autoclosable
-            
-            JMSContext context = cf.createContext();
-            
-            //Create Destination         
-            Destination destination = context.createQueue("queue:///" + QUEUE_NAME);
-            JMSProducer producer = context.createProducer(); // autoclosable
-            
-            //Send the message
-            System.out.println("== Produser =" + producer);
-            System.out.println("== Message  =" + message);
-            
-            producer.send(destination, message);
-            answer = true;
-            System.out.println("==Sent message:\n" + message);
-            
-            return answer;
         } catch (JMSException ex) {
             Logger.getLogger(JMSService.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public static JMSService getInstatnce() {      
+        return SERVICE;
+    }
+    
+    public boolean sendMessage(String message) {
+        
+        boolean answer = false;
+        // Create Consumer
+        // consumer = context.createConsumer(queue); // autoclosable
+        
+        JMSContext context = cf.createContext();
+        //Create Destination
+        Destination destination = context.createQueue("queue:///" + QUEUE_NAME);
+        JMSProducer producer = context.createProducer(); // autoclosable
+        //Send the message
+        System.out.println("== Produser =" + producer);
+        System.out.println("== Message  =" + message);
+        producer.send(destination, message);
+        answer = true;
+        System.out.println("==Sent message:\n" + message);
         return answer;
+      
     }
    
 }
