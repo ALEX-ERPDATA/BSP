@@ -64,7 +64,10 @@ public class JMSService {
             boolean answer = false;
                
            //Send the message
-            producer.send(queue, message);           
+           System.out.println("== Produser =" + producer);               
+           System.out.println("== Message  =" + message);              
+           
+           producer.send(queue, message);           
             answer = true;
             System.out.println("==Sent message:\n" + message);              
         
