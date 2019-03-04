@@ -60,9 +60,7 @@ public class JMSService {
     public boolean sendMessage(String message) {
         
         boolean answer = false;
-        try {
-            
-            
+        try {           
             JmsFactoryFactory ff = JmsFactoryFactory.getInstance(WMQConstants.WMQ_PROVIDER);
             JmsConnectionFactory cf = ff.createConnectionFactory();
                         
