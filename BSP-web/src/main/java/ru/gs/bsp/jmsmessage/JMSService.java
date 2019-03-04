@@ -9,12 +9,13 @@ import javax.jms.JMSProducer;
 import javax.jms.Queue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.jms.Destination;
 
 public class JMSService { 
 
     private final static JMSService SERVICE = new JMSService();  
     private static JMSProducer producer = null;
-    private static Queue queue = null;
+    private static Destination destination = null;
      
     private static final String HOST = "ARM2"; // Host name or IP address
     private static final int PORT = 3000; // Listener port for your queue manager
@@ -45,9 +46,19 @@ public class JMSService {
             JMSContext context = cf.createContext();
             
             //Create Destination         
-            queue = context.createQueue("queue:///" + QUEUE_NAME);
+            destination = context.createQueue("queue:///" + QUEUE_NAME);
             producer = context.createProducer(); // autoclosable
            
+              // Create JMS context
+            /*JMSContext context = cf.createContext();
+            Destination destination = context.createQueue("queue:///" + QUEUE_NAME);
+            JMSProducer producer = context.createProducer();
+            context.createTextMessage("==Your message  is " + message);
+            //send the message            
+            producer.send(destination, message);
+            System.out.println("==Sent11 message:\n" + message)
+                    */
+            
            // Create Consumer
            // consumer = context.createConsumer(queue); // autoclosable                       
         } catch (JMSException ex) {
@@ -67,7 +78,7 @@ public class JMSService {
            System.out.println("== Produser =" + producer);               
            System.out.println("== Message  =" + message);              
            
-           producer.send(queue, message);           
+           producer.send(destination, message);           
             answer = true;
             System.out.println("==Sent message:\n" + message);              
         
