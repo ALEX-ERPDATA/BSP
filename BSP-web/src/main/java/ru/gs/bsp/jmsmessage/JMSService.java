@@ -47,14 +47,17 @@ public class JMSService {
             cf.setStringProperty(WMQConstants.USERID, APP_USER);
             cf.setStringProperty(WMQConstants.PASSWORD, APP_PASSWORD);  
             
+            //JMSCC0033 требует разных контекстов для синхронного и асинхронного обменов
             JMSContext context = cf.createContext();
+            JMSContext contAsync = cf.createContext();
+            
             
             //Create Destinations
             destinationOut = context.createQueue("queue:///" + QUEUE_OUT);
             producer = context.createProducer(); // autoclosable
             
             destinationIn = context.createQueue("queue:///" + QUEUE_IN);
-            consumer = context.createConsumer(destinationIn);
+            consumer = contAsync.createConsumer(destinationIn);
                         
             //Create Listener for queue-responce
             consumer.setMessageListener(new InnerMessageListener("==BSP Consumer"));         
@@ -73,7 +76,7 @@ public class JMSService {
         
         boolean answer = false;
         
-        //send message
+        //send message synchron
         producer.send(destinationOut, message);
         answer = true;
         System.out.println("==Sent message:\n" + message);

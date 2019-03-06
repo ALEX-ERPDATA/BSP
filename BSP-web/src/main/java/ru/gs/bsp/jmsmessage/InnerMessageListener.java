@@ -1,8 +1,7 @@
 package ru.gs.bsp.jmsmessage;
 
-import javax.jms.Destination;
+
 import javax.jms.JMSException;
-import javax.jms.JMSProducer;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
