@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<appdeployment:Deployment xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:appdeployment="http://www.ibm.com/websphere/appserver/schemas/5.0/appdeployment.xmi" xmi:id="Deployment_1551181733215">
+  <deployedObject xmi:type="appdeployment:ApplicationDeployment" xmi:id="ApplicationDeployment_1551181733215" deploymentId="0" startingWeight="1" binariesURL="$(APP_INSTALL_ROOT)/ARM2Node01Cell/BSP-ear.ear" useMetadataFromBinaries="false" enableDistribution="true" createMBeansForResources="true" reloadEnabled="false" appContextIDForSecurity="href:ARM2Node01Cell/BSP-ear" filePermission=".*\.dll=755#.*\.so=755#.*\.a=755#.*\.sl=755" allowDispatchRemoteInclude="false" allowServiceRemoteInclude="false" asyncRequestDispatchType="DISABLED" standaloneModule="false" enableClientModule="false">
+    <targetMappings xmi:id="DeploymentTargetMapping_1551181733215" enable="true" target="ServerTarget_1551181733215"/>
+    <classloader xmi:id="Classloader_1551181733215" mode="PARENT_LAST"/>
+    <modules xmi:type="appdeployment:WebModuleDeployment" xmi:id="WebModuleDeployment_1551181733215" deploymentId="1" startingWeight="10000" uri="BSP-WH-web-1.0.war" classloaderMode="PARENT_LAST" containsEJBContent="0">
+      <targetMappings xmi:id="DeploymentTargetMapping_1551181733216" target="ServerTarget_1551181733215"/>
+      <classloader xmi:id="Classloader_1551181733216"/>
+    </modules>
+    <properties xmi:id="Property_1551181733215" name="metadata.complete" value="false"/>
+  </deployedObject>
+  <deploymentTargets xmi:type="appdeployment:ServerTarget" xmi:id="ServerTarget_1551181733215" name="server1" nodeName="ARM2Node01"/>
+</appdeployment:Deployment>
