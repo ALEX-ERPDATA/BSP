@@ -11,7 +11,6 @@ import javax.jms.TextMessage;
 public class InnerMessageListener implements MessageListener {
     private String consumerName;
   
- 
     public InnerMessageListener(String consumerName) {
         this.consumerName = consumerName;
     }
