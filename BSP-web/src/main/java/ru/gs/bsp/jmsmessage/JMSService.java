@@ -55,6 +55,9 @@ public class JMSService {
             
             destinationIn = context.createQueue("queue:///" + QUEUE_IN);
             consumer = context.createConsumer(destinationIn);
+                        
+            //Create Listener for queue-responce
+            consumer.setMessageListener(new InnerMessageListener("==BSP Consumer"));         
             
             
         } catch (JMSException ex) {
@@ -69,19 +72,20 @@ public class JMSService {
     public boolean sendMessage(String message) {
         
         boolean answer = false;
+        
         //send message
         producer.send(destinationOut, message);
         answer = true;
         System.out.println("==Sent message:\n" + message);
-        
-        
-        //receive message
-        //String body = consumer.receiveBody(String.class,3000);
-        //System.out.println("==Receive message:\n" + body);
-        
-        
+      
         return answer;
       
     }
-   
+      public JMSProducer getProducer () {
+        return producer;
+    }
+    
+    public Destination getDestinationIn () {
+        return destinationOut;
+    }   
 }
