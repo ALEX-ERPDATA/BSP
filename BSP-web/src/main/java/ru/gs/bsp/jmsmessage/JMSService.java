@@ -39,7 +39,7 @@ public class JMSService {
     private static final String APP_USER =     "WAS_USER1"; // User name that application uses to connect to MQ
     private static final String APP_PASSWORD = "WAS_USER1"; // Password that the application uses to connect to MQ
     private static final String QUEUE_OUT =    "APP.TO.JOURNAL"; // Queue that the application
-    private static final String QUEUE_IN =   "ES.TO.HOME"; // Queue that the application
+    private static final String QUEUE_IN =     "ES.TO.HOME"; // Queue that the application
     
     //JMS 2.0 - control COnnection and Session on side WAS  throught using Context
     private JMSService()   {             
