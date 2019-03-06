@@ -7,10 +7,11 @@
   <packaging>pom</packaging>
   <name>BSP</name>
   
-   <modules>
+  <modules>
     <module>BSP-ear</module>
     <module>BSP-web</module>
-    <module>BSP-WH</module>
+    <module>BSP-Journal</module>
+    <module>BSP-WH-ear</module>
     <!--module>BSP-ejb</module-->	
   </modules>    
   
