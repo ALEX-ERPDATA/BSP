@@ -79,8 +79,8 @@ public class JMSService {
         
         
         //receive message
-        String body = consumer.receiveBody(String.class,3000);
-        System.out.println("==Receive message:\n" + body);
+        //String body = consumer.receiveBody(String.class,3000);
+        //System.out.println("==Receive message:\n" + body);
         
         
         return answer;
