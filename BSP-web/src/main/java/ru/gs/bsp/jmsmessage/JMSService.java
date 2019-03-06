@@ -79,7 +79,7 @@ public class JMSService {
         //send message synchron
         producer.send(destinationOut, message);
         answer = true;
-        System.out.println("==Sent message:\n" + message);
+        System.out.println("==BSP Producer sent message:\n" + message);
       
         return answer;
       
