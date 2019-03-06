@@ -69,7 +69,10 @@ public class JMSService {
     public boolean sendMessage(String message) {
         
         boolean answer = false;
-        //send message             
+        //send message
+        if (message.equals("111")) {
+            
+        }
         producer.send(destinationOut, message);
         answer = true;
         System.out.println("==Sent message:\n" + message);
