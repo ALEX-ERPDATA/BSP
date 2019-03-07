@@ -36,8 +36,8 @@ public class JMSService {
     private static final int PORT =            1414; // Listener port for your queue manager
     private static final String CHANNEL =      "SYSTEM.ADMIN.SVRCONN"; // Channel name
     private static final String QMGR =         "QM_IMOD"; // Queue manager name
-    private static final String APP_USER =     "WAS_USER1"; // User name that application uses to connect to MQ
-    private static final String APP_PASSWORD = "WAS_USER1"; // Password that the application uses to connect to MQ
+    //private static final String APP_USER =     "WAS_USER1"; // User name that application uses to connect to MQ
+    //private static final String APP_PASSWORD = "WAS_USER1"; // Password that the application uses to connect to MQ
     private static final String QUEUE_OUT =    "APP.TO.JOURNAL"; // Queue that the application
     //private static final String QUEUE_IN =     "ES.TO.HOME"; // Queue that the application
     
@@ -54,8 +54,8 @@ public class JMSService {
             cf.setStringProperty(WMQConstants.WMQ_QUEUE_MANAGER, QMGR);
             cf.setStringProperty(WMQConstants.WMQ_APPLICATIONNAME, "BSP APP");
             cf.setBooleanProperty(WMQConstants.USER_AUTHENTICATION_MQCSP, true);
-            cf.setStringProperty(WMQConstants.USERID, APP_USER);
-            cf.setStringProperty(WMQConstants.PASSWORD, APP_PASSWORD);  
+            //cf.setStringProperty(WMQConstants.USERID, APP_USER);
+            //cf.setStringProperty(WMQConstants.PASSWORD, APP_PASSWORD);  
             
             //JMSCC0033 требует разных контекстов для синхронного и асинхронного обменов
             JMSContext context = cf.createContext();
