@@ -26,8 +26,8 @@ public class JMSService {
     private static final int PORT =            2500; // Listener port for your queue manager
     private static final String CHANNEL =      "SYSTEM.ADMIN.SVRCONN"; // Channel name
     private static final String QMGR =         "QM_IM"; // Queue manager name   
-    private static final String QUEUE_OUT =    "BSP.TO.JOURNAL"; // Queue that the application
-    //private static final String QUEUE_IN =     "ES.TO.HOME"; // Queue that the application
+    private static final String QUEUE_OUT =    "BSP.TO.WH"; // Queue that the application
+    private static final String QUEUE_IN =     "WH.TO.BSP"; // Queue that the application
     
     //JMS 2.0 - control COnnection and Session on side WAS  throught using Context
     private JMSService()   {             
