@@ -33,12 +33,12 @@ public class JMSService {
     private static final String QUEUE_IN =     "ES.TO.HOME"; // Queue that the application
     */
     
-    private static final String HOST =         "ARM233"; // Host name or IP address
+    private static final String HOST =         "ARM2"; // Host name or IP address  
     private static final int PORT =            1414; // Listener port for your queue manager
     private static final String CHANNEL =      "SYSTEM.ADMIN.SVRCONN"; // Channel name
     private static final String QMGR =         "QM_IN_MOD"; // Queue manager name
-    //private static final String APP_USER =     "WAS_USER1"; // User name that application uses to connect to MQ
-    //private static final String APP_PASSWORD = "WAS_USER1"; // Password that the application uses to connect to MQ
+    private static final String APP_USER =     "WAS_USER1"; // User name that application uses to connect to MQ
+    private static final String APP_PASSWORD = "WAS_USER1"; // Password that the application uses to connect to MQ
     private static final String QUEUE_OUT =    "APP.TO.JOURNAL"; // Queue that the application
     //private static final String QUEUE_IN =     "ES.TO.HOME"; // Queue that the application
     
