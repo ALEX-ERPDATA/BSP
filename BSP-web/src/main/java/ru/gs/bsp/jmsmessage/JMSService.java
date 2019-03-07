@@ -21,25 +21,12 @@ public class JMSService {
 
     private static Destination destinationOut ;
     private static Destination destinationIn ;
-     
-    /*
-    private static final String HOST =         "ARM2"; // Host name or IP address
-    private static final int PORT =            3000; // Listener port for your queue manager
-    private static final String CHANNEL =      "SYSTEM.ADMIN.SVRCONN"; // Channel name
-    private static final String QMGR =         "HABR_QUEUE_MANAGER"; // Queue manager name
-    //private static final String APP_USER =     "WAS_USER1"; // User name that application uses to connect to MQ
-    //private static final String APP_PASSWORD = "WAS_USER1"; // Password that the application uses to connect to MQ
-    private static final String QUEUE_OUT =    "HOME.TO.ES"; // Queue that the application
-    private static final String QUEUE_IN =     "ES.TO.HOME"; // Queue that the application
-    */
     
-    private static final String HOST =         "ARM2"; // Host name or IP address   
-    private static final int PORT =            1414; // Listener port for your queue manager
+    private static final String HOST =         "ARM2"; // Host name or IP address    
+    private static final int PORT =            2500; // Listener port for your queue manager
     private static final String CHANNEL =      "SYSTEM.ADMIN.SVRCONN"; // Channel name
-    private static final String QMGR =         "QM_INMOD"; // Queue manager name
-   // private static final String APP_USER =     "WAS_USER1"; // User name that application uses to connect to MQ
-   // private static final String APP_PASSWORD = "WAS_USER1"; // Password that the application uses to connect to MQ
-    private static final String QUEUE_OUT =    "APP.TO.JOURNAL"; // Queue that the application
+    private static final String QMGR =         "QM_IM"; // Queue manager name   
+    private static final String QUEUE_OUT =    "BSP.TO.JOURNAL"; // Queue that the application
     //private static final String QUEUE_IN =     "ES.TO.HOME"; // Queue that the application
     
     //JMS 2.0 - control COnnection and Session on side WAS  throught using Context
