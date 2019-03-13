@@ -6,11 +6,14 @@ import com.ibm.msg.client.wmq.WMQConstants;
 import javax.jms.JMSContext;
 import javax.jms.JMSException;
 import javax.jms.JMSProducer;
-import javax.jms.Queue;
+import javax.jms.JMSConsumer;
+import javax.jms.Destination;
+import javax.jms.TextMessage;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.jms.Destination;
-import javax.jms.JMSConsumer;
+import javax.jms.Message;
+
+
 
 public class JMSService { 
 
@@ -18,6 +21,8 @@ public class JMSService {
     
     private static JMSProducer producer;
     private static JMSConsumer consumer;
+    private static JMSContext  context ;
+     
 
     private static Destination destinationOut ;
     private static Destination destinationIn ;
@@ -42,11 +47,10 @@ public class JMSService {
             cf.setStringProperty(WMQConstants.WMQ_QUEUE_MANAGER, QMGR);
             cf.setStringProperty(WMQConstants.WMQ_APPLICATIONNAME, "BSP APP");
             cf.setBooleanProperty(WMQConstants.USER_AUTHENTICATION_MQCSP, true);
-            //cf.setStringProperty(WMQConstants.USERID, APP_USER);
-            //cf.setStringProperty(WMQConstants.PASSWORD, APP_PASSWORD);  
+   
             
             //JMSCC0033 требует разных контекстов для синхронного и асинхронного обменов
-            JMSContext context = cf.createContext();
+            context = cf.createContext();
             JMSContext contAsync = cf.createContext();
             
             
@@ -70,12 +74,19 @@ public class JMSService {
         return SERVICE;
     }
     
-    public boolean sendMessage(String message) {
+    public boolean sendMessage(String mess) throws JMSException {
+        int priority = 0;
+        if (mess.equals(111) ) {
+            priority = 8;
+        }
         
         boolean answer = false;
-        
         //send message synchron
+        //TextMessage message = session.createTextMessage("Hello, this is my first message.");
+        Message message = context.createMessage();
+        message.setJMSPriority(priority);      
         producer.send(destinationOut, message);
+        
         answer = true;
         System.out.println("==BSP Producer sent message:\n" + message);
       
