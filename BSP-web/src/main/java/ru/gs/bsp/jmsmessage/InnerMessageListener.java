@@ -17,6 +17,7 @@ public class InnerMessageListener implements MessageListener {
     public void onMessage(Message message) {
         TextMessage textMessage = (TextMessage) message;
         try {
+            // Сообщение получено
             String body = textMessage.getText();
             System.out.println(consumerName + " received " + ":\n"+ body);    
             
