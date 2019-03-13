@@ -75,7 +75,7 @@ public class JMSService {
     
     public boolean sendMessage(String mess) throws JMSException {
         
-        //если VIP , то повышенный приоритет
+        //если VIP , то повышенный приоритет 
         if (mess.equals("111") ) {
             int priority = 8;
             producer.setPriority(priority);
