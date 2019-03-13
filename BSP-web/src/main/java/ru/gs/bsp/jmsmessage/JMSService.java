@@ -11,7 +11,6 @@ import javax.jms.Destination;
 import javax.jms.TextMessage;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.jms.Message;
 
 
 
@@ -83,7 +82,7 @@ public class JMSService {
         boolean answer = false;
         //send message synchron
         //TextMessage message = session.createTextMessage("Hello, this is my first message.");
-        Message message = context.createMessage();
+        TextMessage message = context.createTextMessage(mess);
         message.setJMSPriority(priority);      
         producer.send(destinationOut, message);
         
