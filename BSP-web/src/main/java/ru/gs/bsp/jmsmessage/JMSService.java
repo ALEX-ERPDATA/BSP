@@ -75,7 +75,7 @@ public class JMSService {
     }
     
     public boolean sendMessage(String mess) throws JMSException {
-        int priority = 0;
+        int priority = 1;
         if (mess.equals(111) ) {
             priority = 8;
         }
