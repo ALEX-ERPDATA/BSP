@@ -55,6 +55,7 @@ public class JMSService {
             
             //Create Destinations
             destinationOut = context.createQueue("queue:///" + QUEUE_OUT);
+            
             producer = context.createProducer(); // autoclosable
             
             destinationIn = context.createQueue("queue:///" + QUEUE_IN);
@@ -74,7 +75,8 @@ public class JMSService {
     }
     
     public boolean sendMessage(String mess) throws JMSException {
-        
+        boolean answer = false;
+        long timeStamp = System.currentTimeMillis();
         //если VIP , то повышенный приоритет 
         if (mess.equals("111") ) {
             int priority = 8;
@@ -83,10 +85,12 @@ public class JMSService {
             
         }
         
-        boolean answer = false;
+        
         //send message synchron
         TextMessage message = context.createTextMessage(mess);
         message.setJMSReplyTo(destinationIn);
+        message.setJMSExpiration(timeStamp+300000); //5 мин
+        
         producer.send(destinationOut, message);
      
         
