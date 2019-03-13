@@ -86,6 +86,7 @@ public class JMSService {
         boolean answer = false;
         //send message synchron
         TextMessage message = context.createTextMessage(mess);
+        message.setJMSReplyTo(destinationIn);
         producer.send(destinationOut, message);
      
         
