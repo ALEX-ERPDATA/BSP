@@ -76,24 +76,23 @@ public class JMSService {
     
     public boolean sendMessage(String mess) throws JMSException {
         boolean answer = false;
-        long timeStamp = System.currentTimeMillis();
+        long ttlStamp = System.currentTimeMillis()+3000;
         //если VIP , то повышенный приоритет 
         if (mess.equals("111") ) {
             int priority = 8;
             producer.setPriority(priority);
-            System.out.println("==BSP change priority to " + priority);
-            
+            System.out.println("==BSP change priority to " + priority);            
         }
         
         
         //send message synchron
         TextMessage message = context.createTextMessage(mess);
         message.setJMSReplyTo(destinationIn);
-        message.setJMSExpiration(timeStamp+300000); //5 мин
-        
+        //message.setJMSExpiration(timeStamp+300000); //5 мин
+        producer.setTimeToLive(ttlStamp);  
+       
         producer.send(destinationOut, message);
-     
-        
+             
         answer = true;
         System.out.println("==BSP Producer sent message:\n" + message);
       
