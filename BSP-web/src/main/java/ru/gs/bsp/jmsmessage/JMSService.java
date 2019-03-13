@@ -57,7 +57,7 @@ public class JMSService {
             destinationOut = context.createQueue("queue:///" + QUEUE_OUT);
             producer = context.createProducer(); // autoclosable
             
-            //destinationIn = context.createQueue("queue:///" + QUEUE_IN);
+            destinationIn = context.createQueue("queue:///" + QUEUE_IN);
             consumer = contAsync.createConsumer(destinationIn);
                         
             //Create Listener for queue-responce
