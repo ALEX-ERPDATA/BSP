@@ -77,6 +77,8 @@ public class JMSService {
         int priority = 1;
         if (mess.equals("111") ) {
             priority = 8;
+            System.out.println("==BSP change priority to " + priority);
+            
         }
         
         boolean answer = false;
