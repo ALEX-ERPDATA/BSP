@@ -58,10 +58,10 @@ public class JMSService {
             producer = context.createProducer(); // autoclosable
             
             //destinationIn = context.createQueue("queue:///" + QUEUE_IN);
-            //consumer = contAsync.createConsumer(destinationIn);
+            consumer = contAsync.createConsumer(destinationIn);
                         
             //Create Listener for queue-responce
-            //consumer.setMessageListener(new InnerMessageListener("==BSP Consumer"));         
+            consumer.setMessageListener(new InnerMessageListener("==BSP Consumer"));         
             
             
         } catch (JMSException ex) {
