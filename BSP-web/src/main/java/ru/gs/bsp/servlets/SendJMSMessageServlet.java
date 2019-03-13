@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.jms.JMSException;
 import ru.gs.bsp.jmsmessage.JMSService;
 
 public class SendJMSMessageServlet extends HttpServlet {
@@ -38,14 +41,18 @@ public class SendJMSMessageServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        String message = request.getParameter(MESSAGE_PARAMETER_NAME);
-        
-        JMSService.getInstatnce().sendMessage(message);
-        
-        
-       //request.setAttribute(MESSAGE_PARAMETER_NAME, (jmsMessage.sendMessage(message)) ? MESSAGE_SENDING_SUCCESS : MESSAGE_SENDING_ERROR);
-       // request.getRequestDispatcher("/viewMessage.jsp").forward(request, response);
+        try {
+            request.setCharacterEncoding("UTF-8");
+            String message = request.getParameter(MESSAGE_PARAMETER_NAME);
+            
+            JMSService.getInstatnce().sendMessage(message);
+            
+            
+            //request.setAttribute(MESSAGE_PARAMETER_NAME, (jmsMessage.sendMessage(message)) ? MESSAGE_SENDING_SUCCESS : MESSAGE_SENDING_ERROR);
+            // request.getRequestDispatcher("/viewMessage.jsp").forward(request, response);
+        } catch (JMSException ex) {
+            Logger.getLogger(SendJMSMessageServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     
