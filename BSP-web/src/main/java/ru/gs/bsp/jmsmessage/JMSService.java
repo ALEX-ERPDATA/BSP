@@ -81,9 +81,9 @@ public class JMSService {
         
         boolean answer = false;
         //send message synchron
-        //TextMessage message = session.createTextMessage("Hello, this is my first message.");
         TextMessage message = context.createTextMessage(mess);
-        message.setJMSPriority(priority);      
+        message.setJMSPriority(priority);   
+        
         producer.send(destinationOut, message);
         
         answer = true;
