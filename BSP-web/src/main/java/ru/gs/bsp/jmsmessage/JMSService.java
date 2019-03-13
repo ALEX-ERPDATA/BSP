@@ -76,7 +76,7 @@ public class JMSService {
     
     public boolean sendMessage(String mess) throws JMSException {
         boolean answer = false;
-        long ttlStamp = System.currentTimeMillis()+3000;
+     
         //если VIP , то повышенный приоритет 
         if (mess.equals("111") ) {
             int priority = 8;
@@ -85,12 +85,17 @@ public class JMSService {
         }
         
         
-        //send message synchron
+        // set message settings
         TextMessage message = context.createTextMessage(mess);
         message.setJMSReplyTo(destinationIn);
-        //message.setJMSExpiration(timeStamp+300000); //5 мин
-        producer.setTimeToLive(ttlStamp);  
-       
+        
+        // устанавливаю TTL - не заработало
+        /*java.util.Date date = new java.util.Date();
+        long expiration = date.getTime() + 60000; //10 мин
+        message.setJMSExpiration(expiration);
+        */
+        
+        //send message synchron
         producer.send(destinationOut, message);
              
         answer = true;
