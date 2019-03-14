@@ -1,8 +1,5 @@
 package ru.gs.bsp.servlets;
 
-import ru.lukdiman.ejb.core.jmsmessage.JMSMessageHome;
-import ru.lukdiman.ejb.core.jmsmessage.JMSMessage;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,22 +14,6 @@ public class SendJMSMessageServlet extends HttpServlet {
     private static final String MESSAGE_PARAMETER_NAME = "message";
     private static final String MESSAGE_SENDING_SUCCESS = "Сообщение успешно отправлено";
     private static final String MESSAGE_SENDING_ERROR = "Сообщение отправлено с ошибкой";
-
-    private JMSMessage jmsMessage = null;
-
-    /*@Override
-    public void init() throws ServletException {
-        super.init();
-
-        try {
-            Context ctx = new InitialContext();
-            Object objHome = ctx.lookup("java:comp/env/ejb/JMSMessageLocal");
-            JMSMessageHome jmsMessageHome = (JMSMessageHome) PortableRemoteObject.narrow(objHome, JMSMessageHome.class);
-            jmsMessage = jmsMessageHome.create();
-        } catch (Exception e) {
-            throw new ServletException(e);
-        }
-    }*/
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

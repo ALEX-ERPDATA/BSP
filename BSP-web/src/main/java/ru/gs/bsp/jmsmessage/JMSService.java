@@ -20,18 +20,18 @@ public class JMSService {
     
     private static JMSProducer producer;
     private static JMSConsumer consumer;
-    private static JMSContext  context ;
-     
+    private static JMSContext  context ;     
 
     private static Destination destinationOut ;
     private static Destination destinationIn ;
-    
+       
     private static final String HOST =         "ARM2"; // Host name or IP address    
     private static final int PORT =            2500; // Listener port for your queue manager
     private static final String CHANNEL =      "SYSTEM.ADMIN.SVRCONN"; // Channel name
     private static final String QMGR =         "QM_IM"; // Queue manager name   
     private static final String QUEUE_OUT =    "BSP.TO.WH"; // Queue that the application
     private static final String QUEUE_IN =     "WH.TO.BSP"; // Queue that the application
+    private static final String QUEUE_CURR =   "BSP.CURRENCY"; // Queue that the application
     
     //JMS 2.0 - control COnnection and Session on side WAS  throught using Context
     private JMSService()   {             
@@ -46,24 +46,24 @@ public class JMSService {
             cf.setStringProperty(WMQConstants.WMQ_QUEUE_MANAGER, QMGR);
             cf.setStringProperty(WMQConstants.WMQ_APPLICATIONNAME, "BSP APP");
             cf.setBooleanProperty(WMQConstants.USER_AUTHENTICATION_MQCSP, true);
-   
-            
+               
             //JMSCC0033 требует разных контекстов для синхронного и асинхронного обменов
             context = cf.createContext();
-            JMSContext contAsync = cf.createContext();
-            
+            JMSContext contAsync = cf.createContext();            
             
             //Create Destinations
             destinationOut = context.createQueue("queue:///" + QUEUE_OUT);
-            
             producer = context.createProducer(); // autoclosable
             
             destinationIn = context.createQueue("queue:///" + QUEUE_IN);
             consumer = contAsync.createConsumer(destinationIn);
-                        
-            //Create Listener for queue-responce
-            consumer.setMessageListener(new InnerMessageListener("==BSP Consumer"));         
             
+            Destination destinationCurr = context.createQueue("queue:///" + QUEUE_CURR);
+            JMSConsumer consumerCurr = contAsync.createConsumer(destinationCurr);
+                                                
+            //Create Listeners for  receiving messages
+            consumer.setMessageListener(new InnerMessageListener("==BSP Consumer from WH"));     
+            consumerCurr.setMessageListener(new InnerMessageListener("==BSP Consumer from CURR"));              
             
         } catch (JMSException ex) {
             Logger.getLogger(JMSService.class.getName()).log(Level.SEVERE, null, ex);
