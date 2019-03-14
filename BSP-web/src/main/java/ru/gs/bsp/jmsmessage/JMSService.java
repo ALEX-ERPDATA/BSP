@@ -85,8 +85,9 @@ public class JMSService {
         }
         
         
-        // set message settings
+        // set Message Descriptor headers (MQMD)  
         TextMessage message = context.createTextMessage(mess);
+        
         message.setJMSReplyTo(destinationIn);
         
         // устанавливаю TTL - не заработало
