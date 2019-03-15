@@ -63,7 +63,9 @@ public class JMSService {
                                                 
             //Create Listeners for  receiving messages
             consumer.setMessageListener(new InnerMessageListener("==BSP Consumer from WH"));     
-            consumerCurr.setMessageListener(new InnerMessageListener("==BSP Consumer from CURR"));              
+            consumerCurr.setMessageListener(new InnerMessageListener("==BSP Consumer from CURR")); 
+            consumerCurr.receive();
+            
             
         } catch (JMSException ex) {
             Logger.getLogger(JMSService.class.getName()).log(Level.SEVERE, null, ex);
