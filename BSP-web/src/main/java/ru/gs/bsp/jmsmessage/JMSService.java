@@ -31,7 +31,7 @@ public class JMSService {
     private static final String QMGR =         "QM_IM"; // Queue manager name   
     private static final String WH_OUT =    "BSP.TO.WH"; // Queue that the application
     private static final String WH_IN =     "WH.TO.BSP"; // Queue that the application
-    //private static final String QUEUE_CURR =   "BSP.CURRENCY"; // Queue that the application
+    private static final String QUEUE_CURR =   "BSP.CURRENCY"; // Queue that the application
     
     //JMS 2.0 - control COnnection and Session on side WAS  throught using Context
     private JMSService()   {             
@@ -58,12 +58,12 @@ public class JMSService {
             destinationIn = context.createQueue("queue:///" + WH_IN);
             consumer = contAsync.createConsumer(destinationIn);
             
-            //Destination destinationCurr = context.createQueue("queue:///" + QUEUE_CURR);
-            //JMSConsumer consumerCurr = contAsync.createConsumer(destinationCurr);
+            Destination destinationCurr = context.createQueue("queue:///" + QUEUE_CURR);
+            JMSConsumer consumerCurr = contAsync.createConsumer(destinationCurr);
                                                 
             //Create Listeners for  receiving messages
             consumer.setMessageListener(new InnerMessageListener("==BSP Consumer from WH"));     
-            //consumerCurr.setMessageListener(new InnerMessageListener("==BSP Consumer from CURR"));              
+            consumerCurr.setMessageListener(new InnerMessageListener("==BSP Consumer from CURR"));              
             
         } catch (JMSException ex) {
             Logger.getLogger(JMSService.class.getName()).log(Level.SEVERE, null, ex);
