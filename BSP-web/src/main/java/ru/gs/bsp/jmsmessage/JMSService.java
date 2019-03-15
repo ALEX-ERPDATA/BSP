@@ -29,8 +29,8 @@ public class JMSService {
     private static final int PORT =            2500; // Listener port for your queue manager
     private static final String CHANNEL =      "SYSTEM.ADMIN.SVRCONN"; // Channel name
     private static final String QMGR =         "QM_IM"; // Queue manager name   
-    private static final String QUEUE_OUT =    "BSP.TO.WH"; // Queue that the application
-    private static final String QUEUE_IN =     "WH.TO.BSP"; // Queue that the application
+    private static final String WH_OUT =    "BSP.TO.WH"; // Queue that the application
+    private static final String WH_IN =     "WH.TO.BSP"; // Queue that the application
     private static final String QUEUE_CURR =   "BSP.CURRENCY"; // Queue that the application
     
     //JMS 2.0 - control COnnection and Session on side WAS  throught using Context
@@ -52,10 +52,10 @@ public class JMSService {
             JMSContext contAsync = cf.createContext();            
             
             //Create Destinations
-            destinationOut = context.createQueue("queue:///" + QUEUE_OUT);
+            destinationOut = context.createQueue("queue:///" + WH_OUT);
             producer = context.createProducer(); // autoclosable
             
-            destinationIn = context.createQueue("queue:///" + QUEUE_IN);
+            destinationIn = context.createQueue("queue:///" + WH_IN);
             consumer = contAsync.createConsumer(destinationIn);
             
             Destination destinationCurr = context.createQueue("queue:///" + QUEUE_CURR);
