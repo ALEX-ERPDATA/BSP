@@ -17,6 +17,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import ru.gs.bsp.jmsmessage.JMSService;
 
 public class AuthFilter implements Filter {
 
@@ -26,11 +27,13 @@ public class AuthFilter implements Filter {
     public void init(FilterConfig filterConfig) throws ServletException {
         this.filterConfig = filterConfig;
         System.out.println(" == init " + filterConfig.getFilterName());
+        // init JMS engine
+        JMSService.getInstatnce();
     }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        System.out.print("=do Filter: Request received .....");
+        System.out.print("= do Filter: Request received .....");
 
         try {
 
@@ -54,7 +57,7 @@ public class AuthFilter implements Filter {
             }
 
         } catch (IOException io) {
-            System.out.println("IOException raised in AuthenticationFilter");
+            System.out.println("IOException raised in Authentication Filter");
         }
 
         System.out.print("do Filter : Response dispatched ......");
