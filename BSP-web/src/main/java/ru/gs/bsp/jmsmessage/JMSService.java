@@ -104,7 +104,7 @@ public class JMSService {
         MessagesStorage.getInstance().addRequestID(message.getJMSCorrelationID());
         System.out.println("==BSP Producer sent message:\n" + message);
          
-        return message.getJMSMessageID();
+        return message.getJMSCorrelationID();
       
     }
       public JMSProducer getProducer () {

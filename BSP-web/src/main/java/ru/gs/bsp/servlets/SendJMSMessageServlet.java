@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.jms.JMSException;
+import javax.jms.Message;
 import ru.gs.bsp.jmsmessage.MessagesStorage;
 import ru.gs.bsp.jmsmessage.JMSService;
 
@@ -31,8 +32,12 @@ public class SendJMSMessageServlet extends HttpServlet {
             String messID = JMSService.getInstatnce().sendMessage(message);
             try {
                 Thread.sleep(2000);
-                String limitAvail = MessagesStorage.getInstance().getResponceMessage(messID).getBody(String.class);
-                
+                Message ans = MessagesStorage.getInstance().getResponceMessage(messID);
+                String limitAvail = null; 
+                if (ans != null) {
+                    ans.getBody(String.class);
+                }
+                                
                 //request.setAttribute(MESSAGE_PARAMETER_NAME, (jmsMessage.sendMessage(message)) ? MESSAGE_SENDING_SUCCESS : MESSAGE_SENDING_ERROR);
                 // request.getRequestDispatcher("/viewMessage.jsp").forward(request, response);
                 PrintWriter out = response.getWriter();        
@@ -41,7 +46,7 @@ public class SendJMSMessageServlet extends HttpServlet {
                 out.println("Answer limit");
                 out.println("</title>");
                 out.println("<body>");
-                out.println("<h1> Amswer is");
+                out.println("<h1> Amswer : ");
                 out.print(limitAvail);
                 out.println("</body>");
                 out.println("</html>");   

@@ -28,7 +28,7 @@ public final class MessagesStorage {
     }
     
     public Message getResponceMessage(String requestID) {
-       
+        
        Set entrySet = map.entrySet();
        Iterator it = entrySet.iterator();            
        
