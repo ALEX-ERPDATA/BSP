@@ -3,6 +3,7 @@ package ru.gs.bsp.jmsmessage;
 import com.ibm.msg.client.jms.JmsConnectionFactory;
 import com.ibm.msg.client.jms.JmsFactoryFactory;
 import com.ibm.msg.client.wmq.WMQConstants;
+import java.util.UUID;
 import javax.jms.JMSContext;
 import javax.jms.JMSException;
 import javax.jms.JMSProducer;
@@ -88,6 +89,7 @@ public class JMSService {
         
         // set Message Descriptor headers (MQMD)  
         TextMessage message = context.createTextMessage(mess);
+        message.setJMSCorrelationID(UUID.randomUUID().toString());
         
         message.setJMSReplyTo(destinationIn);
         
