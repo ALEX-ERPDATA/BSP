@@ -21,7 +21,8 @@ public class InnerMessageListener implements MessageListener {
             String body = textMessage.getText();
             System.out.println(consumerName + " received " + ":\n"+ body);    
             
-            // дальше логика пересылки ответа на html       
+            // дальше логика пересылки ответа на html
+            MessagesStorage.getInstance().putResponceMessage(message);
             
         } catch (JMSException e) {
             e.printStackTrace();

@@ -76,9 +76,8 @@ public class JMSService {
         return SERVICE;
     }
     
-    public boolean sendMessage(String mess) throws JMSException {
-        boolean answer = false;
-     
+    public String sendMessage(String mess) throws JMSException {
+             
         //если VIP , то повышенный приоритет 
         if (mess.equals("111") ) {
             int priority = 8;
@@ -101,11 +100,11 @@ public class JMSService {
         
         //send message synchron
         producer.send(destinationOut, message);
-             
-        answer = true;
+        
+        MessagesStorage.getInstance().addRequestID(message.getJMSCorrelationID());
         System.out.println("==BSP Producer sent message:\n" + message);
-      
-        return answer;
+         
+        return message.getJMSMessageID();
       
     }
       public JMSProducer getProducer () {
