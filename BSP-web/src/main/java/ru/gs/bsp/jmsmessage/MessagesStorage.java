@@ -18,15 +18,21 @@ public final class MessagesStorage {
         return STORAGE;
     }
     
-    protected void addRequestID(String value) {
-        map.put(value,null);        
+    protected void addRequestID(String requestID) {
+        map.put(requestID,null);        
     }
     
     protected void putResponceMessage(Message mess) throws JMSException {           
        map.replace(mess.getJMSCorrelationID(),mess);
-       //System.out.println("Key is: "+me.getKey() + " value is: "+me.getValue());   
+       
+       Set entrySet = map.entrySet(); 
+       Iterator it = entrySet.iterator();
+       System.out.println("==HashMap Key-Value Pairs : ");
+       while(it.hasNext()){
+          Map.Entry me = (Map.Entry)it.next();
+          System.out.println("Key is: "+me.getKey() + " value is: "+me.getValue());   
+        }
     }
-    
     public Message getResponceMessage(String requestID) {
         
        Set entrySet = map.entrySet();
