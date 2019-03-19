@@ -19,10 +19,11 @@ public class InnerMessageListener implements MessageListener {
         try {
             // Сообщение получено
             String body = textMessage.getText();
+            MessagesStorage.getInstance().putResponceMessage(message);
             System.out.println(consumerName + " received " + ":\n"+ body);    
             
             // дальше логика пересылки ответа на html
-            MessagesStorage.getInstance().putResponceMessage(message);
+            
             
         } catch (JMSException e) {
             e.printStackTrace();

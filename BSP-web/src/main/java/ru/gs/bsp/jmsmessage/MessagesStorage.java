@@ -23,7 +23,14 @@ public final class MessagesStorage {
     }
     
     protected void putResponceMessage(Message mess) throws JMSException {           
-       map.replace(mess.getJMSCorrelationID(),mess);
+        
+       System.out.println(" == mess for replace = " + mess.getBody(String.class));   
+        
+       String correlId = mess.getJMSCorrelationID();
+       
+       map.remove(correlId);
+       map.put(correlId, mess);
+       //map.replace(mess.getJMSCorrelationID(),mess);
        
        Set entrySet = map.entrySet(); 
        Iterator it = entrySet.iterator();
@@ -31,8 +38,9 @@ public final class MessagesStorage {
        while(it.hasNext()){
           Map.Entry me = (Map.Entry)it.next();
           System.out.println("Key is: "+me.getKey() + " value is: "+me.getValue());   
-        }
+       }
     }
+       
     public Message getResponceMessage(String requestID) {
         
        //Set entrySet = map.entrySet();
