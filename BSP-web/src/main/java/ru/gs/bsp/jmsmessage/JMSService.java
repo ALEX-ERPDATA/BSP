@@ -65,7 +65,8 @@ public class JMSService {
             consumer.setMessageListener(new InnerMessageListener("==BSP Consumer from WH"));     
             consumerCurr.setMessageListener(new InnerMessageListener("==BSP Consumer from CURR"));             
             
-            
+             System.out.println("== BSP JmsService's been initialization");
+             
         } catch (JMSException ex) {
             Logger.getLogger(JMSService.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -89,6 +90,7 @@ public class JMSService {
         message.setJMSCorrelationID(UUID.randomUUID().toString());
         
         message.setJMSReplyTo(destinationIn);
+ 
         
         // устанавливаю TTL - не заработало
         /*java.util.Date date = new java.util.Date();

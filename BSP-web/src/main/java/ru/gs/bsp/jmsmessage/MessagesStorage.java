@@ -24,7 +24,7 @@ public final class MessagesStorage {
        System.out.println("== HashMap after add ReqId : ");
        Set<Map.Entry<String,String>> set = map.entrySet(); 
        for (Map.Entry<String,String> me : set) {
-           System.out.println("== Key is: "+me.getKey() + " value is: "+me.getValue());   
+           System.out.println("Key is: "+me.getKey() + " value is: "+me.getValue());   
        }   
     }
     
@@ -35,15 +35,16 @@ public final class MessagesStorage {
        System.out.println("== HashMap before put Responce : ");
        Set<Map.Entry<String,String>> set = map.entrySet(); 
        for (Map.Entry<String,String> me : set) {
-           System.out.println("== Key is: "+me.getKey() + " value is: "+me.getValue());   
+           System.out.println(" Key is: "+me.getKey() + " value is: "+me.getValue());   
        }
               
+       // replace 
        map.put(correlId, mess.getBody(String.class));
               
        System.out.println("== HashMap after put Responce : ");
        Set<Map.Entry<String,String>> set2 = map.entrySet(); 
        for (Map.Entry<String,String> me : set2) {
-           System.out.println("== Key is: "+me.getKey() + " value is: "+me.getValue());   
+           System.out.println(" Key is: "+me.getKey() + " value is: "+me.getValue());   
        }
     }
        
