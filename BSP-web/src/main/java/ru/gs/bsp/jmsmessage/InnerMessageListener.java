@@ -13,7 +13,8 @@ public class InnerMessageListener implements MessageListener {
     public InnerMessageListener(String consumerName) {
         this.consumerName = consumerName;
     }
- 
+    
+    @Override
     public void onMessage(Message message) {
         TextMessage textMessage = (TextMessage) message;
         try {
