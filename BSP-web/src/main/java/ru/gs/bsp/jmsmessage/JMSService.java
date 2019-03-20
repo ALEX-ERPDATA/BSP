@@ -87,7 +87,8 @@ public class JMSService {
                 
         // set Message Descriptor headers (MQMD)  
         TextMessage message = context.createTextMessage(mess);
-        message.setJMSCorrelationID(UUID.randomUUID().toString());
+        String messID = UUID.randomUUID().toString();
+        message.setJMSMessageID(messID);
         message.setJMSReplyTo(destinationIn);
         
         
@@ -101,14 +102,9 @@ public class JMSService {
         producer.send(destinationOut, message);
                
         System.out.println("==BSP Producer sent message:\n" + message);
-        MessagesStorage.getInstance().addRequestID(message.getJMSCorrelationID()); 
+        MessagesStorage.getInstance().addRequestID(messID); 
         
-        
-        
-        
-        
-        
-        return message.getJMSCorrelationID();
+        return messID;
       
     }
       public JMSProducer getProducer () {
