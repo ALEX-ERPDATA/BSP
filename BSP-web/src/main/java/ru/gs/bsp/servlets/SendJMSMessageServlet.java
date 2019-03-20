@@ -32,9 +32,10 @@ public class SendJMSMessageServlet extends HttpServlet {
             String message = request.getParameter(MESSAGE_PARAMETER_NAME);
             //send
             String messID = JMSService.getInstatnce().sendMessage(message);
+            
             try {                
                 Thread.sleep(2000);
-                String ans = MessagesStorage.getInstance().getResponce(messID);              
+                String ans = MessagesStorage.getInstance().getMessageResponce(messID);              
                 
                 String limitAvail = null; 
                 if (ans != null) {
@@ -58,7 +59,7 @@ public class SendJMSMessageServlet extends HttpServlet {
             } catch (InterruptedException ex) {}
         } catch (JMSException ex) {
             Logger.getLogger(SendJMSMessageServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }   
         
         
     }

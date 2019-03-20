@@ -98,10 +98,9 @@ public class JMSService {
         
         //send message synchron
         producer.send(destinationOut, message);
-        
-        MessagesStorage.getInstance().addRequestID(message.getJMSCorrelationID());
+               
         System.out.println("==BSP Producer sent message:\n" + message);
-         
+        MessagesStorage.getInstance().addRequestID(message.getJMSCorrelationID()); 
         
         
         
