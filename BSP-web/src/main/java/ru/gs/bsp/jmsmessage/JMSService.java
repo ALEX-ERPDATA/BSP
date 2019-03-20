@@ -62,7 +62,7 @@ public class JMSService {
             JMSConsumer consumerCurr = contAsync.createConsumer(destinationCurr);
                                                 
             //Create Listeners for  receiving messages
-            consumer.setMessageListener(new InnerMessageListener("==BSP Consumer from WH"));     
+            //consumer.setMessageListener(new InnerMessageListener("==BSP Consumer from WH"));     
             consumerCurr.setMessageListener(new InnerMessageListener("==BSP Consumer from CURR"));             
             
              System.out.println("== BSP JmsService's been initialization");
@@ -88,9 +88,8 @@ public class JMSService {
         // set Message Descriptor headers (MQMD)  
         TextMessage message = context.createTextMessage(mess);
         message.setJMSCorrelationID(UUID.randomUUID().toString());
-        
         message.setJMSReplyTo(destinationIn);
- 
+        
         
         // устанавливаю TTL - не заработало
         /*java.util.Date date = new java.util.Date();
