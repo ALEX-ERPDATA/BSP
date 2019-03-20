@@ -21,23 +21,17 @@ public final class MessagesStorage {
     protected void addRequestID(String requestID) {
        map.put(requestID,null);
        
-       System.out.println("== HashMap after add ReqId : ");
+       /*System.out.println("== HashMap after add ReqId : ");
        Set<Map.Entry<String,String>> set = map.entrySet(); 
        for (Map.Entry<String,String> me : set) {
            System.out.println("Key is: "+me.getKey() + " value is: "+me.getValue());   
-       }   
+       } */  
     }
     
     protected void putResponceMessage(Message mess) throws JMSException {           
         
        String correlId = mess.getJMSCorrelationID();
        
-       System.out.println("== HashMap before put Responce : ");
-       Set<Map.Entry<String,String>> set = map.entrySet(); 
-       for (Map.Entry<String,String> me : set) {
-           System.out.println(" Key is: "+me.getKey() + " value is: "+me.getValue());   
-       }
-              
        // replace 
        map.put(correlId, mess.getBody(String.class));
               
