@@ -89,9 +89,8 @@ public class JMSService {
         TextMessage message = context.createTextMessage(mess);
         
         message.setJMSReplyTo(destinationIn);
-        message.setJMSCorrelationID(UUID.randomUUID().toString());
-        
-        
+        message.setJMSMessageID(UUID.randomUUID().toString());
+                
         // устанавливаю TTL - не заработало
         /*java.util.Date date = new java.util.Date();
         long expiration = date.getTime() + 60000; //10 мин
