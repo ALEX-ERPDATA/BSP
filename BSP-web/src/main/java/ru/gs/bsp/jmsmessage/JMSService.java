@@ -89,7 +89,7 @@ public class JMSService {
         TextMessage message = context.createTextMessage(mess);
         
         message.setJMSReplyTo(destinationIn);
-        message.setJMSMessageID(UUID.randomUUID().toString());
+        message.setJMSCorrelationID(UUID.randomUUID().toString());
         
         
         // устанавливаю TTL - не заработало
