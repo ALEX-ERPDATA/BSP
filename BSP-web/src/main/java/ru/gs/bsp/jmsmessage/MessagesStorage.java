@@ -10,7 +10,7 @@ import javax.jms.Message;
 public final class MessagesStorage {
 
     private static final MessagesStorage STORAGE = new MessagesStorage();
-    private static final Map<String,Message> map = new HashMap();
+    private final Map<String,String> map = new HashMap();
      
     private MessagesStorage() { }
     
@@ -19,7 +19,9 @@ public final class MessagesStorage {
     }
     
     protected void addRequestID(String requestID) {
-        map.put(requestID,null);        
+        map.put(requestID,null);
+        
+        
     }
     
     protected void putResponceMessage(Message mess) throws JMSException {           
@@ -28,20 +30,37 @@ public final class MessagesStorage {
         
        String correlId = mess.getJMSCorrelationID();
        
+       System.out.println("== HashMap before remove : ");
+       Set entrySet2 = map.entrySet(); 
+       Iterator it2 = entrySet2.iterator();    
+       while(it2.hasNext()){
+          Map.Entry me = (Map.Entry)it2.next();
+          System.out.println("== Key is: "+me.getKey() + " value is: "+me.getValue());   
+       }
+              
        map.remove(correlId);
-       map.put(correlId, mess);
+       
+       System.out.println("== HashMap after remove : ");
+       Set entrySet3 = map.entrySet(); 
+       Iterator it3= entrySet3.iterator();
+       while(it3.hasNext()){
+          Map.Entry me = (Map.Entry)it3.next();
+          System.out.println("== Key is: "+me.getKey() + " value is: "+me.getValue());   
+       }       
+       
+       map.put(correlId, mess.getBody(String.class));
        //map.replace(mess.getJMSCorrelationID(),mess);
        
+       System.out.println("== HashMap after put : ");
        Set entrySet = map.entrySet(); 
-       Iterator it = entrySet.iterator();
-       System.out.println("==HashMap Key-Value Pairs : ");
+       Iterator it = entrySet.iterator();    
        while(it.hasNext()){
           Map.Entry me = (Map.Entry)it.next();
-          System.out.println("Key is: "+me.getKey() + " value is: "+me.getValue());   
+          System.out.println("== Key is: "+me.getKey() + " value is: "+me.getValue());   
        }
     }
        
-    public Message getResponceMessage(String requestID) {
+    public String getResponce(String requestID) {
         
        //Set entrySet = map.entrySet();
        //Iterator it = entrySet.iterator();            

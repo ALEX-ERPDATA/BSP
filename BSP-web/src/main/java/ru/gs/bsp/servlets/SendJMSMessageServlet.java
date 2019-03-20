@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.jms.JMSException;
@@ -28,18 +30,17 @@ public class SendJMSMessageServlet extends HttpServlet {
         try {
             request.setCharacterEncoding("UTF-8");
             String message = request.getParameter(MESSAGE_PARAMETER_NAME);
-            
+            //send
             String messID = JMSService.getInstatnce().sendMessage(message);
-            try {
+            try {                
                 Thread.sleep(2000);
-                Message ans = MessagesStorage.getInstance().getResponceMessage(messID);
+                String ans = MessagesStorage.getInstance().getResponce(messID);              
+                
                 String limitAvail = null; 
                 if (ans != null) {
-                    ans.getBody(String.class);
+                    limitAvail = ans;
                 }
                                 
-                //request.setAttribute(MESSAGE_PARAMETER_NAME, (jmsMessage.sendMessage(message)) ? MESSAGE_SENDING_SUCCESS : MESSAGE_SENDING_ERROR);
-                // request.getRequestDispatcher("/viewMessage.jsp").forward(request, response);
                 PrintWriter out = response.getWriter();        
                 out.println("<html>");
                 out.println("<title>");
@@ -51,6 +52,8 @@ public class SendJMSMessageServlet extends HttpServlet {
                 out.println("</body>");
                 out.println("</html>");   
                 
+                //request.setAttribute(MESSAGE_PARAMETER_NAME, (jmsMessage.sendMessage(message)) ? MESSAGE_SENDING_SUCCESS : MESSAGE_SENDING_ERROR);
+                // request.getRequestDispatcher("/viewMessage.jsp").forward(request, response);
                 
             } catch (InterruptedException ex) {}
         } catch (JMSException ex) {

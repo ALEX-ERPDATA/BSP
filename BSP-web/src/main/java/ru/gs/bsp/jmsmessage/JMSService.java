@@ -14,7 +14,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-
 public class JMSService { 
 
     private final static JMSService SERVICE = new JMSService();  
@@ -84,8 +83,7 @@ public class JMSService {
             producer.setPriority(priority);
             System.out.println("==BSP change priority to " + priority);            
         }
-        
-        
+                
         // set Message Descriptor headers (MQMD)  
         TextMessage message = context.createTextMessage(mess);
         message.setJMSCorrelationID(UUID.randomUUID().toString());
@@ -104,6 +102,12 @@ public class JMSService {
         MessagesStorage.getInstance().addRequestID(message.getJMSCorrelationID());
         System.out.println("==BSP Producer sent message:\n" + message);
          
+        
+        
+        
+        
+        
+        
         return message.getJMSCorrelationID();
       
     }
