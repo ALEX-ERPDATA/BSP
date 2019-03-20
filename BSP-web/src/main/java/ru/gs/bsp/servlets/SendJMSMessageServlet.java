@@ -34,7 +34,7 @@ public class SendJMSMessageServlet extends HttpServlet {
             String messID = JMSService.getInstatnce().sendMessage(message);
             
             try {                
-                Thread.sleep(2000);
+                //Thread.sleep(2000);
                 String ans = MessagesStorage.getInstance().getMessageResponce(messID);              
                 
                 String limitAvail = null; 
