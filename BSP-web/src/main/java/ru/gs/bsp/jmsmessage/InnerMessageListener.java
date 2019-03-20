@@ -19,8 +19,9 @@ public class InnerMessageListener implements MessageListener {
         try {
             // Сообщение получено
             String body = textMessage.getText();
+            System.out.println(consumerName + " received " + body); 
             MessagesStorage.getInstance().putResponceMessage(message);
-            System.out.println(consumerName + " received " + body);    
+              
               
             
         } catch (JMSException e) {
