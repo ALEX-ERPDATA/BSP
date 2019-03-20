@@ -20,7 +20,7 @@ public class InnerMessageListener implements MessageListener {
             // Сообщение получено
             String body = textMessage.getText();
             MessagesStorage.getInstance().putResponceMessage(message);
-            System.out.println(consumerName + " received " + ":\n"+ body);    
+            System.out.println(consumerName + " received " + body);    
             
             // дальше логика пересылки ответа на html
             
