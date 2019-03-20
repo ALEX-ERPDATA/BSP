@@ -33,7 +33,7 @@ public class SendJMSMessageServlet extends HttpServlet {
             //send
             String messID = JMSService.getInstatnce().sendMessage(message);
             
-            try {                
+            //try {                
                 //Thread.sleep(2000);
                 String ans = MessagesStorage.getInstance().getMessageResponce(messID);              
                 
@@ -56,7 +56,7 @@ public class SendJMSMessageServlet extends HttpServlet {
                 //request.setAttribute(MESSAGE_PARAMETER_NAME, (jmsMessage.sendMessage(message)) ? MESSAGE_SENDING_SUCCESS : MESSAGE_SENDING_ERROR);
                 // request.getRequestDispatcher("/viewMessage.jsp").forward(request, response);
                 
-            } catch (InterruptedException ex) {}
+            //} catch (InterruptedException ex) {}
         } catch (JMSException ex) {
             Logger.getLogger(SendJMSMessageServlet.class.getName()).log(Level.SEVERE, null, ex);
         }   
