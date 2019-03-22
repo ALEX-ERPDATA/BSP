@@ -59,7 +59,7 @@ public class JMSService {
             consumer = contAsync.createConsumer(destinationIn);
             
             Destination destinationCurr = context.createQueue("queue:///" + QUEUE_CURR);
-            JMSConsumer consumerCurr = contAsync.createConsumer(destinationCurr);  
+            JMSConsumer consumerCurr = contAsync.createConsumer(destinationCurr);   
                                                 
             //Create Listeners for  receiving messages
             consumer.setMessageListener(new InnerMessageListener("==BSP Consumer from WH"));     
