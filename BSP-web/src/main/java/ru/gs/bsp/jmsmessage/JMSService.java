@@ -32,7 +32,7 @@ public class JMSService {
     private static final int PORT =            2500; // Listener port for your queue manager
     private static final String CHANNEL =      "SYSTEM.ADMIN.SVRCONN"; // Channel name
     private static final String QMGR =         "QM_IM"; // Queue manager name   
-    private static final String JOURNAL_OUT =  "BSP.TO.JOURNAL"; // Queue that the application
+    private static final String JOURNAL_OUT =  "REM.BSP.TO.JOURNAL"; // Queue that the application
     private static final String WH_OUT =       "BSP.TO.WH"; // Queue that the application
     private static final String WH_IN =        "WH.TO.BSP"; // Queue that the application
     private static final String QUEUE_CURR =   "BSP.CURRENCY"; // Queue that the application
