@@ -24,13 +24,17 @@ public class JMSService {
 
     private static Destination destinationOut ;
     private static Destination destinationIn ;
+    
+    private Destination destinationJour ;
+    private JMSProducer producerJour ;
        
     private static final String HOST =         "ARM2"; // Host name or IP address    
     private static final int PORT =            2500; // Listener port for your queue manager
     private static final String CHANNEL =      "SYSTEM.ADMIN.SVRCONN"; // Channel name
     private static final String QMGR =         "QM_IM"; // Queue manager name   
-    private static final String WH_OUT =    "BSP.TO.WH"; // Queue that the application
-    private static final String WH_IN =     "WH.TO.BSP"; // Queue that the application
+    private static final String JOURNAL_OUT =  "BSP.TO.JOURNAL"; // Queue that the application
+    private static final String WH_OUT =       "BSP.TO.WH"; // Queue that the application
+    private static final String WH_IN =        "WH.TO.BSP"; // Queue that the application
     private static final String QUEUE_CURR =   "BSP.CURRENCY"; // Queue that the application
     
     //JMS 2.0 - control COnnection and Session on side WAS  throught using Context
@@ -52,15 +56,22 @@ public class JMSService {
             JMSContext contAsync = cf.createContext();            
             
             //Create Destinations
+            ///WH
             destinationOut = context.createQueue("queue:///" + WH_OUT);
             producer = context.createProducer(); // autoclosable
             
             destinationIn = context.createQueue("queue:///" + WH_IN);
             consumer = contAsync.createConsumer(destinationIn);
             
+            //CURR
             Destination destinationCurr = context.createQueue("queue:///" + QUEUE_CURR);
             JMSConsumer consumerCurr = contAsync.createConsumer(destinationCurr);   
-                                                
+            
+            ///Journal
+            destinationJour = context.createQueue("queue:///" + JOURNAL_OUT);
+            producerJour = context.createProducer(); 
+            
+            
             //Create Listeners for  receiving messages
             consumer.setMessageListener(new InnerMessageListener("==BSP Consumer from WH"));     
             consumerCurr.setMessageListener(new InnerMessageListener("==BSP Consumer from CURR"));             
@@ -103,6 +114,9 @@ public class JMSService {
         System.out.println("==BSP Producer sent message:\n" + message);
         String messID = message.getJMSMessageID();
         MessagesStorage.getInstance().addRequestID(messID); 
+        
+        // запишем в Journal инфо о факте отправке сообщения
+       producerJour.send(destinationJour, "SEND REQUEST_TO_WH: "+message.getBody(String.class));
         
         return messID;
       

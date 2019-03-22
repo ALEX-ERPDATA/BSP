@@ -3,19 +3,19 @@
 <html>
 	<head>
 		<meta http-equip="Content-Type" content="text/html; charset=UTF-8"/>
-		<title>Отправка сообщения в очередь</title>
+		<title>Отправка сообщения в подсистему</title>
 	</head>
 	<body>
 		<form action="sendMessage" method="POST">
 			<table>
 				<tr>
-					<td>Введите сообщение:</td>
+					<td> Cообщение для WH:</td>
 					<td><input type="text" name="message" size="70"/></td>
 				</tr>
 				<tr>
 					<td colspan="2"><input type="submit" name="submitMessage" value="Отправить"/></td>
 				</tr>
 			</table>
-		</form>
+		</form>            
 	</body>
 </html>
