@@ -50,7 +50,7 @@ public class MainServlet extends HttpServlet {
                 //запоминаем имя пользователя в сессию
                 request.getSession(true).setAttribute("currentSessionUser",user); 
                // response.sendRedirect("WEB-INF/views/logged.jsp"); //logged-in page     
-                dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/logged.jsp");
+                dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/mainPage.jsp");
                 dispatcher.forward(request, response);
             } 
             else  

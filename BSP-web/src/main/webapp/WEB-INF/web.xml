@@ -22,9 +22,16 @@
         <url-pattern>/app/Main</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>/MainServlet</servlet-name>
+        <servlet-name>MainServlet</servlet-name>
         <servlet-class>ru.gs.bsp.servlets.MainServlet</servlet-class>
     </servlet>
+    
+    
+       
+    
+    
+    
+    
     <servlet>
         <servlet-name>SendJMSMessage</servlet-name>
         <servlet-class>ru.gs.bsp.servlets.SendJMSMessageServlet</servlet-class>
