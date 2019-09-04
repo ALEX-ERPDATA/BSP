@@ -5,6 +5,7 @@
         <param-name>email</param-name>
         <param-value>admin@example.com</param-value>
     </context-param>
+    
     <filter-mapping>
         <filter-name>AuthFilter</filter-name>
         <url-pattern>/app/*</url-pattern>

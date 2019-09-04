@@ -46,12 +46,20 @@ public class AuthFilter implements Filter {
             } // не авторизован / требуем авторизацию
             else if (response instanceof HttpServletResponse) {
                 ServletContext context = filterConfig.getServletContext();
-                //String login_page = context.getInitParameter("login_page");
+                
                 System.out.print("=NO Authentication, forward to Login page = ");
+                // для FORM AUTH
+                //String login_page = context.getInitParameter("login_page");
+                context.getRequestDispatcher("/view/login.jsp").forward(request, response);
+
                 // вернуть 401
-                ((HttpServletResponse) response).setStatus(((HttpServletResponse) response).SC_UNAUTHORIZED);
-                ((HttpServletResponse) response).setHeader("WWW-Authenticate", "Basic realm=\"realm\"");
-                //context.getRequestDispatcher(login_page).forward(request, response);
+                /// для Base Auth
+                //((HttpServletResponse) response).setStatus(((HttpServletResponse) response).SC_UNAUTHORIZED);
+                //((HttpServletResponse) response).setHeader("WWW-Authenticate", "Basic realm=\"realm\"");
+                
+                
+              
+                
             } else {
                 throw new ServletException(" something happens ");
             }
