@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
  
-public class LoginPostServlet extends HttpServlet {
+public class MainServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
  
     // Показать страницу Login.
@@ -62,13 +62,7 @@ public class LoginPostServlet extends HttpServlet {
             System.out.println(theException); 
         } 
         
-    }    
-        
-        
-        
-        
-        
-        
+    }                
         /*
         String userName = request.getParameter("userName");
         String password = request.getParameter("password");

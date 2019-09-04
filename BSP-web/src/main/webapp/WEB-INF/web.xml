@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
-    
     <!-- This is a context init parameter -->
     <context-param>
         <param-name>email</param-name>
@@ -18,7 +17,14 @@
             <param-value>true</param-value>
         </init-param>
     </filter>
-    
+    <servlet-mapping>
+        <servlet-name>MainServlet</servlet-name>
+        <url-pattern>/app/Main</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>/MainServlet</servlet-name>
+        <servlet-class>ru.gs.bsp.servlets.MainServlet</servlet-class>
+    </servlet>
     <servlet>
         <servlet-name>SendJMSMessage</servlet-name>
         <servlet-class>ru.gs.bsp.servlets.SendJMSMessageServlet</servlet-class>
@@ -27,7 +33,6 @@
         <servlet-name>SendJMSMessage</servlet-name>
         <url-pattern>/sendMessage</url-pattern>
     </servlet-mapping>
-    
     <servlet-mapping>
         <servlet-name>InfoServlet</servlet-name>
         <url-pattern>/getInfo</url-pattern>
@@ -36,18 +41,8 @@
         <servlet-name>InfoServlet</servlet-name>
         <servlet-class>ru.gs.bsp.servlets.InfoServlet</servlet-class>
     </servlet>
-    
-    <servlet-mapping>
-        <servlet-name>LoginPostServlet</servlet-name>
-        <url-pattern>/LoginPost</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>LoginPostServlet</servlet-name>
-        <servlet-class>ru.gs.bsp.servlets.LoginPostServlet</servlet-class>
-    </servlet>
-    
     <!-- перевести на Web-services -->
-    <servlet-mapping>
+    <!--servlet-mapping>
         <servlet-name>WelcomeServlet</servlet-name>
         <url-pattern>/app/welcome</url-pattern>
     </servlet-mapping>
@@ -58,15 +53,15 @@
             <param-name>linkPage</param-name>
             <param-value>firstPage.jsp</param-value>
         </init-param>
-    </servlet>
-    <servlet-mapping>
+    </servlet-->
+    <!--servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/app/logout</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>ru.gs.bsp.servlets.LogoutServlet</servlet-class>
-    </servlet>
+    </servlet-->
     <servlet-mapping>
         <servlet-name>GetCurrencyRates</servlet-name>
         <url-pattern>/app/rates</url-pattern>
