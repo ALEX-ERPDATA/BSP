@@ -13,7 +13,7 @@
             <!--li> Чтобы увидеть знанчения headers введите /getInfo?header=название_хидера </li-->
         </ol>
         
-        <form action="formAuth" method="post">
+        <form action="app/Main" method="post">
 
         	Please enter your username 		
 		<input type="text" name="uname"/><br>		
