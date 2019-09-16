@@ -12,7 +12,7 @@
         
         <p><a href="rates"> 1. Узнать курс валют </a></p>
         
-        <p><a href="rates"> 2. Сделать заказ </a></p>
+        <p><a href="/order/make"> 2. Сделать заказ </a></p>
         
         <p><a href="logout"> Выход </a></p>
      </body>

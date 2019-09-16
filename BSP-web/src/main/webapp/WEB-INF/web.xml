@@ -26,6 +26,15 @@
         <servlet-name>MainServlet</servlet-name>
         <servlet-class>ru.gs.bsp.servlets.MainServlet</servlet-class>
     </servlet>
+        <servlet-mapping>
+        <servlet-name>GetCurrencyRates</servlet-name>
+        <url-pattern>/app/rates</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>GetCurrencyRates</servlet-name>
+        <servlet-class>ru.gs.bsp.servlets.GetCurrencyRates</servlet-class>
+    </servlet>
+    
     <servlet>
         <servlet-name>SendJMSMessage</servlet-name>
         <servlet-class>ru.gs.bsp.servlets.SendJMSMessageServlet</servlet-class>
@@ -63,14 +72,7 @@
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>ru.gs.bsp.servlets.LogoutServlet</servlet-class>
     </servlet-->
-    <servlet-mapping>
-        <servlet-name>GetCurrencyRates</servlet-name>
-        <url-pattern>/app/rates</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>GetCurrencyRates</servlet-name>
-        <servlet-class>ru.gs.bsp.servlets.GetCurrencyRates</servlet-class>
-    </servlet>
+
     <servlet-mapping>
         <servlet-name>GetAllOrders</servlet-name>
         <url-pattern>/app/orders</url-pattern>
