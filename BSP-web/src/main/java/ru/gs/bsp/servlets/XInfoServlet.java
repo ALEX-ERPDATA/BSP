@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 //@WebServlet(urlPatterns = { "/annotationExample", "/annExample" })
-public class InfoServlet extends HttpServlet {
+public class XInfoServlet extends HttpServlet {
 
     public static final String PARAMETER_SESSION = "FIRST_NAME";
    

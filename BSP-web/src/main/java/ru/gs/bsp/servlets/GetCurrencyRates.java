@@ -39,8 +39,8 @@ public class GetCurrencyRates  extends HttpServlet {
         catch(Exception e){System.out.println(e);}  
         */ 
                 
-        Object o  = getServletContext().getAttribute("!!!_transport_attr_from_welcome");
-        System.out.println("== transport_attr = " + o); 
+        //Object o  = getServletContext().getAttribute("!!!_transport_attr_from_welcome");
+        //System.out.println("== transport_attr = " + o); 
         
         PrintWriter out = response.getWriter();
         try {
@@ -52,7 +52,7 @@ public class GetCurrencyRates  extends HttpServlet {
             out.println("<h2> 1 USD = 65 RUB </h2>");
             out.println("<h2> 1 EUR = 71 RUB </h2>");
             out.println("<h3>  Attribute from Welcome Servlet = </h3>");
-            out.print(o.toString());
+            //out.print(o.toString());
             out.println("</body>");
             out.println("</html>");
         } finally { 
