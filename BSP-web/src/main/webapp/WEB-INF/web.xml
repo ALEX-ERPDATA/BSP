@@ -51,6 +51,28 @@
         <servlet-name>InfoServlet</servlet-name>
         <servlet-class>ru.gs.bsp.servlets.XInfoServlet</servlet-class>
     </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>XGetPrintForm</servlet-name>
+        <url-pattern>/app/getPrint</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>XGetPrintForm</servlet-name>
+        <servlet-class>ru.gs.bsp.servlets.XGetPrintForm</servlet-class>
+    </servlet>
+    
+    
+    
+    <!--servlets for PRINT module -->
+     <servlet>
+        <servlet-name>MakePrintForm</servlet-name>
+        <servlet-class>ru.gs.printservice.servlets.MakePrintFormServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MakePrintForm</servlet-name>
+        <url-pattern>/app/makePrint</url-pattern>
+    </servlet-mapping>
+    
     <!-- перевести на Web-services -->
     <!--servlet-mapping>
         <servlet-name>WelcomeServlet</servlet-name>

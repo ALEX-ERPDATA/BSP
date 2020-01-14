@@ -68,8 +68,7 @@ public class LoginBean {
                    
             if (authUserName.equals("ALEX") && authUserPsswd.equals("123")) {
                 //добавляем метку
-                session.setAttribute("currentSessionUser", authUserName);
-                
+                makeSession(authUserName);               
                 result = true;
             }
 
@@ -90,7 +89,8 @@ public class LoginBean {
            
     private void makeSession (String user) {
         //запоминаем имя пользователя в сессию
-        request.getSession(true).setAttribute("currentSessionUser",user);      
+        request.getSession(true).setAttribute("currentSessionUser",user);     
+        request.getSession(true).setAttribute("UserFullName", "Smirnov AV");
     }
     
      public boolean checkSession (HttpServletRequest request) {
