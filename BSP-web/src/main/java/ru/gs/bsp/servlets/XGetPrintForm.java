@@ -35,9 +35,14 @@ public class XGetPrintForm extends HttpServlet {
                 
 		conn.setRequestProperty("Content-Type", "application/json");
                 conn.setRequestProperty("Cookie","JSESSIONID="+request.getRequestedSessionId() );
-                              
+                
 		String input = "{\"qty\":100,\"name\":\"iPad 4\"}";
-
+                // TO do
+                //  формируем json из содержимого заказа , переданного в конструкторе
+                //  обрабатываем ( Смирнов А.В.) данные из сессии \ переделать на redis
+                //  добавляем в json обработанные сессионные данные
+                //  отправляем json в сервис Печати
+                //
 		OutputStream os = conn.getOutputStream();
 		os.write(input.getBytes());
 		os.flush();
