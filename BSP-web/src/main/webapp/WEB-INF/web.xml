@@ -61,7 +61,14 @@
         <servlet-class>ru.gs.bsp.servlets.XGetPrintForm</servlet-class>
     </servlet>
     
-    
+    <servlet-mapping>
+        <servlet-name>XGetOrderHistory</servlet-name>
+        <url-pattern>/app/getOrderHistory</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>XGetOrderHistory</servlet-name>
+        <servlet-class>ru.gs.bsp.servlets.XGetOrderHistory</servlet-class>
+    </servlet>    
     
     <!--servlets for PRINT module -->
      <servlet>
